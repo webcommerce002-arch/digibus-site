@@ -1,0 +1,17 @@
+# Vidéos non utilisées (trop lourdes)
+public/videos/digibus-2025.mp4
+public/videos/digibus-presentation.mp4
+
+# Photos Facebook non intégrées (82Mo)
+public/images/facebook/
+
+# Fichiers locaux
+.env
+.env.local
+.DS_Store
+*.DS_Store
+
+# Fichiers internes agence
+CLAUDE.md
+DIGIBUS.md
+src/

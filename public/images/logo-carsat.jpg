@@ -1,0 +1,35 @@
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Caisse régionale</title>
+<style>
+body {
+	background-color: #e9e9e9; margin : 0px;
+	font-family: Verdana; font-size: 14px;
+}
+.contenu {
+    background-color: #FFFFFF;
+    max-width: 1110px; min-width: 290px;
+    margin: auto; height:100%
+} 
+.haut { padding-top : 50px ;} .gauche { padding-top : 50px ; float:left;} .droite { margin-left:40% ; padding-top : 50px ; padding-right : 50px ;}
+h1 { color: #0a4e7b; }
+</style>
+</head>
+
+<body>
+<div class="contenu">
+	<div class="haut"><img src="barre.png"></div>
+	<div class="gauche"><img src="404.png"></div>
+	<div class="droite">
+	<h1>Erreur page non trouvée</h1>
+	<p>&nbsp;</p>
+	<p>Vous avez essayé d’atteindre une page qui n’existe pas ou qui n’est plus disponible sur ce site.</p>
+	<p> <a href="javascript:history.back()">Cliquez ici pour retourner à la page précédente</a></p>
+	</div>
+</div>
+</body>
+</html>

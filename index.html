@@ -1,0 +1,3083 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digibus — Le numérique au service de l'humain</title>
+  <meta name="description" content="Premier Relais Numérique du Pas-de-Calais. Ateliers numériques gratuits, itinérants, pour tous les habitants du 62."/>
+  <meta property="og:title" content="Digibus — Le numérique au service de l'humain"/>
+  <meta property="og:description" content="Ateliers numériques 100% gratuits dans le Pas-de-Calais."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap&font-display=swap" rel="stylesheet"/>
+  <style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --blue:      #1f4683;
+    --blue-mid:  #2092c5;
+    --blue-dark: #0d1428;
+    --blue-pale: #EBF4FB;
+    --white:     #FFFFFF;
+    --bg:        #F8FAFB;
+    --text:      #0d1428;
+    --muted:     #6B7A90;
+    --border:    #E2E8F0;
+    --page-bg:   #FFFFFF;  /* fond page blanc */
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--page-bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    padding: 1rem;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; max-width: 100%; }
+
+  /* ══ NAV LIFER STYLE ══════════════════════════════════ */
+  nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding: 20px 44px;
+    background: transparent;
+  }
+
+  /* Wrapper pill + dropdown */
+  .nav-logo-wrap { position: relative; }
+
+  /* Bloc logo gauche — carré + texte à côté */
+  .nav-logo-block {
+    display: inline-flex; align-items: center; gap: 16px;
+  }
+  /* Carré blanc avec uniquement le logo */
+  .nav-logo-square {
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: 16px; padding: 10px;
+    box-shadow: 0 2px 16px rgba(31,70,131,0.10);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo-square img {
+    height: 90px; width: 90px;
+    object-fit: contain; display: block;
+  }
+  /* Texte "Association Digibus" hors du carré */
+  .nav-logo-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800; font-size: 22px; color: var(--text);
+    white-space: nowrap; line-height: 1.2;
+  }
+
+  /* Pill Accueil — bouton menu droite */
+  .nav-pill-logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.7);
+    padding: 10px 18px; border-radius: 16px;
+    cursor: pointer; user-select: none;
+    box-shadow: 0 2px 16px rgba(31,70,131,0.10);
+    transition: background .2s;
+  }
+  .nav-pill-logo:hover { background: rgba(255,255,255,0.98); }
+  .nav-pill-arrow {
+    font-size: 14px; color: var(--muted);
+    transition: transform .25s;
+  }
+
+  /* Dropdown menu — carte blanche style Lifer */
+  .nav-dropdown {
+    display: none;
+    position: absolute; top: calc(100% + 8px); left: 0;
+    min-width: 460px;
+    background: rgba(255,255,255,0.96); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: 20px;
+    padding: 20px 28px 24px;
+    box-shadow: 0 8px 40px rgba(31,70,131,0.14);
+    z-index: 300;
+  }
+  .nav-dropdown.open { display: block; }
+
+  /* Ligne logo dans le dropdown */
+  .dd-header {
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 20px; margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .dd-header img { height: 34px; border-radius: 10px; }
+  .dd-header-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 17px; color: var(--text); flex: 1; }
+  .dd-header-arrow { font-size: 20px; color: var(--muted); }
+
+  /* Grille de liens */
+  .dd-links {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4px 32px; margin-bottom: 20px;
+  }
+  .dd-link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px; font-weight: 700; color: var(--text);
+    text-decoration: none; padding: 8px 0;
+    transition: color .2s;
+    display: block;
+  }
+  .dd-link:hover { color: var(--blue-mid); }
+
+  /* Socials bas du dropdown */
+  .dd-socials {
+    display: flex; gap: 32px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    padding-top: 16px;
+  }
+  .dd-social {
+    font-size: 14px; color: var(--muted); text-decoration: none;
+    transition: color .2s;
+  }
+  .dd-social:hover { color: var(--text); }
+
+  /* Droite nav */
+  .nav-right { display: flex; align-items: center; gap: 20px; margin-top: 4px; }
+  .nav-story {
+    font-size: 14px; font-weight: 500; color: var(--text);
+    display: flex; align-items: center; gap: 6px; text-decoration: none;
+  }
+  .nav-story::before { content: '•'; color: var(--blue-mid); }
+  .nav-cta-pill {
+    background: rgba(255,255,255,0.82); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.5);
+    color: var(--text); padding: 11px 24px; border-radius: 14px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    box-shadow: 0 2px 12px rgba(31,70,131,0.08);
+    transition: background .2s;
+  }
+  .nav-cta-pill:hover { background: rgba(255,255,255,0.96); }
+
+  /* ══ HERO — CARTE ARRONDIE style Lifer ════════════════ */
+  #hero {
+    height: calc(-2rem + 100svh);
+    border-radius: 24px;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    /* Dégradé bleu coins organiques — blanc pur au centre */
+    background:
+      radial-gradient(ellipse 75% 90% at -8% 55%,  rgba(31,70,131,0.42) 0%, rgba(58,111,181,0.18) 40%, transparent 65%),
+      radial-gradient(ellipse 65% 80% at 108% 35%, rgba(31,70,131,0.38) 0%, rgba(90,155,210,0.15) 40%, transparent 62%),
+      radial-gradient(ellipse 55% 55% at 50% 105%, rgba(31,70,131,0.22) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 35% at 15% 90%,  rgba(58,111,181,0.28) 0%, transparent 50%),
+      radial-gradient(ellipse 35% 30% at 88% 85%,  rgba(90,155,210,0.22) 0%, transparent 48%),
+      #ffffff;
+  }
+
+  /* Quadrillage fondu sur tout le fond — style Lifer */
+  #hero::before {
+    content: ''; position: absolute; inset: 0; z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(31,70,131,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31,70,131,0.07) 1px, transparent 1px);
+    background-size: 54px 54px;
+    -webkit-mask-image: radial-gradient(ellipse 40% 45% at 50% 45%, black 0%, black 20%, transparent 80%);
+    mask-image: radial-gradient(ellipse 40% 45% at 50% 45%, black 0%, black 20%, transparent 80%);
+  }
+
+  .hero-nav-spacer { height: 70px; flex-shrink: 0; }
+
+  .hero-inner {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 20px 52px 40px;
+    position: relative; z-index: 1; text-align: center;
+    overflow: hidden;
+  }
+
+  /* Badge pill — style Lifer : fond blanc semi-transparent */
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0;
+    background: rgba(255,255,255,0.75); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 8px 22px; border-radius: 100px;
+    margin-bottom: 18px; font-size: 13px; font-weight: 400;
+    box-shadow: 0 2px 16px rgba(31,70,131,0.1);
+  }
+  .hero-badge-accent { color: var(--blue); font-weight: 600; font-style: italic; }
+
+  /* H1 — Plus Jakarta Sans 800 comme Eina */
+  .hero-h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(58px, 9.5vw, 112px);
+    font-weight: 800; line-height: 1.0;
+    color: #1a1a2e; letter-spacing: -0.035em;
+    margin-bottom: 12px;
+  }
+
+  .hero-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; line-height: 1.6; color: #4a5568;
+    max-width: 520px; margin: 0 auto 28px; font-weight: 400;
+  }
+
+  /* CTA bouton gradient border — technique mask */
+  .btn-hero-primary {
+    position: relative; display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.92);
+    padding: 17px 40px; border-radius: 100px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px; font-weight: 700; color: #1a1a2e;
+    text-decoration: none; z-index: 0;
+    box-shadow: 0 4px 24px rgba(31,70,131,0.15);
+    transition: transform .2s, box-shadow .2s;
+    margin-bottom: 36px;
+  }
+  .btn-hero-primary::before {
+    content: ''; position: absolute; inset: 0;
+    border-radius: 100px; padding: 2.5px;
+    background: linear-gradient(135deg, #1f4683 0%, #2092c5 40%, #93c5fd 70%, #2092c5 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    z-index: -1;
+  }
+  .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(31,70,131,0.22); }
+  .btn-hero-primary .btn-sparkle { font-size: 18px; }
+
+  /* Citation hero — style Lifer : centré, large, gris */
+  .hero-quote-wrap { max-width: 620px; margin: 0 auto; }
+  .hero-quote {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px; line-height: 1.65; color: #2d3748;
+    font-weight: 500; font-style: normal;
+    margin-bottom: 16px;
+  }
+  .hero-cite {
+    display: block; font-size: 14px; color: #718096;
+    font-weight: 400; margin-bottom: 16px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .hero-stars { display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .hero-stars span { font-size: 20px; color: #F59E0B; }
+
+  /* ══ SOCIAL PROOF STRIP ═══════════════════════════════ */
+  /* Trust + logos = fond blanc entre les 2 cartes */
+  #trust {
+    padding: 36px 52px;
+    background: var(--page-bg);
+  }
+  .trust-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .trust-count {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700;
+    color: #555; white-space: nowrap;
+  }
+  .trust-count span { color: var(--blue-mid); }
+  .trust-sep { width: 1px; height: 20px; background: #ccc; }
+
+  /* ══ STATS CARDS (remplace logos) ═══════════════════ */
+  #stats-cards { padding: 56px 52px; background: var(--white); }
+  .stats-cards-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 768px) { .stats-cards-inner { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .stats-cards-inner { grid-template-columns: 1fr; } }
+
+  /* ══ MARQUEE LOGOS ════════════════════════════════════ */
+  /* ══ PARTENAIRES — grille couleur avant footer ═══════ */
+  #logos {
+    padding: 64px 52px 56px; background: var(--white);
+    border-top: 1px solid var(--border);
+  }
+  .logos-label {
+    text-align: center; font-size: 11px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 40px;
+  }
+  .logos-grid {
+    max-width: 1000px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 28px 44px;
+  }
+  .logos-grid img {
+    height: 46px; object-fit: contain; display: block;
+    transition: opacity .25s, transform .25s;
+  }
+  .logos-grid img:hover { opacity: 0.75; transform: scale(1.05); }
+  .logos-exhaustive {
+    text-align: center; margin-top: 28px;
+    font-size: 12px; color: var(--muted); font-style: italic;
+  }
+  @media (max-width: 768px) {
+    #logos { padding: 48px 24px 40px; }
+    .logos-grid { gap: 20px 28px; }
+    .logos-grid img { height: 34px; }
+  }
+
+  /* ══ TEXTE PROGRESSIF — fond rappel bannière ══════════ */
+  #scrolltext {
+    padding: 60px 52px; overflow: hidden;
+    border-radius: 24px; margin: 0; isolation: isolate;
+    background: #f0f7ff;
+    position: relative;
+  }
+
+  /* ── Coins décoratifs — coupe diagonale droite (triangle) ── */
+  .st-corner {
+    position: absolute; pointer-events: none; overflow: hidden;
+    width: 160px; height: 160px; z-index: 0;
+  }
+  .st-corner-bl { bottom: 0; left: 0; }
+  /* Coin bas-droit = miroir horizontal du bas-gauche */
+  .st-corner-br { bottom: 0; right: 0; transform: scaleX(-1); }
+  /* Coin haut-droit = rotation 180° */
+  .st-corner-tr { top: 0; right: 0; transform: rotate(180deg); }
+
+  /* Chaque vague = triangle avec coupe droite diagonale */
+  .st-wave {
+    position: absolute; bottom: 0; left: 0;
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+  }
+  .st-wave-1 { width: 150px; height: 150px; background: rgba(146,188,228,0.32); }
+  .st-wave-2 { width: 112px; height: 112px; background: rgba(90,148,210,0.48); }
+  .st-wave-3 { width:  76px; height:  76px; background: rgba(45,105,175,0.62); }
+  .st-wave-4 { width:  42px; height:  42px; background: rgba(20,60,128,0.78); }
+
+  /* Hero corners — mêmes tailles */
+  .hero-corner { width: 160px; height: 160px; }
+  .hero-corner .st-wave-1 { width: 150px; height: 150px; }
+  .hero-corner .st-wave-2 { width: 112px; height: 112px; }
+  .hero-corner .st-wave-3 { width:  76px; height:  76px; }
+  .hero-corner .st-wave-4 { width:  42px; height:  42px; }
+  #scrolltext::before {
+    content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(31,70,131,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31,70,131,0.06) 1px, transparent 1px);
+    background-size: 54px 54px;
+    -webkit-mask-image: radial-gradient(ellipse 45% 50% at 50% 50%, black 0%, black 20%, transparent 75%);
+    mask-image: radial-gradient(ellipse 45% 50% at 50% 50%, black 0%, black 20%, transparent 75%);
+  }
+  .st-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+  .st-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(16px, 2.2vw, 26px);
+    font-weight: 600; line-height: 1.6; letter-spacing: -0.01em;
+  }
+  /* Mots commencent très gris et deviennent foncés */
+  .sw {
+    display: inline;
+    color: rgba(13,20,40,0.12);
+    transition: color 0.4s ease;
+  }
+  .sw.lit { color: rgba(13,20,40,0.88); }
+  /* Mots clés : bleu Digibus quand révélés */
+  .sw.hl { color: rgba(31,70,131,0.12); transition: color 0.4s ease; }
+  .sw.hl.lit { color: #1f4683; }
+
+
+  /* ══ STATS CARDS — style Lifer (cartes arrondies + hover gradient) ═ */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 60px; }
+  .stat-card {
+    background: var(--white); border-radius: 20px; padding: 36px 28px;
+    border: 1px solid var(--border);
+    transition: all 0.35s ease;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(135deg, rgba(31,70,131,0.08), rgba(32,146,197,0.12));
+    opacity: 0; transition: opacity 0.35s ease;
+  }
+  .stat-card:hover::before { opacity: 1; }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(31,70,131,0.15); }
+  .stat-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(40px,5vw,68px); font-weight: 800; color: var(--text);
+    letter-spacing: -.03em; line-height: 1; margin-bottom: 12px;
+    position: relative; z-index: 1;
+  }
+  .stat-num span { color: var(--blue-mid); }
+  .stat-label { font-size: 14px; color: var(--muted); line-height: 1.5; position: relative; z-index: 1; }
+
+  /* ══ SECTION LIFER EXACTE — photo haut + [G · Centre · D] + photo bas ═ */
+  #quad {
+    padding: 80px 52px 100px;
+    background: var(--white);
+    overflow: visible;
+  }
+  .quad-inner { max-width: 1100px; margin: 0 auto; }
+
+  /* Photo haut — centrée, badge + cœur */
+  .ql-top {
+    width: 280px; height: 200px;
+    border-radius: 20px; overflow: hidden; position: relative;
+    margin: 0 auto 32px;
+  }
+  .ql-top img { width:100%;height:100%;object-fit:cover;display:block; }
+  .ql-top-badge {
+    position: absolute; bottom: 14px; left: 14px;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    border-radius: 100px; padding: 6px 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px; font-weight: 700; color: var(--text);
+  }
+  .ql-top-heart {
+    position: absolute; top: 12px; right: 12px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  /* Row milieu : photo G + texte + photo D */
+  .ql-row {
+    display: flex; align-items: center; gap: 48px;
+    margin-bottom: 32px;
+  }
+
+  /* Photo gauche — dépasse avec card flottante */
+  .ql-photo-left {
+    width: 240px; flex-shrink: 0;
+    border-radius: 20px; overflow: visible; position: relative;
+  }
+  .ql-photo-left-img {
+    width: 240px; height: 340px; border-radius: 20px; overflow: hidden;
+  }
+  .ql-photo-left-img img { width:100%;height:100%;object-fit:cover;display:block; }
+  /* Card blanche qui dépasse en bas à gauche — style Lifer */
+  .ql-float-card {
+    position: absolute; bottom: -28px; left: -12px; right: -12px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 14px 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    z-index: 10;
+  }
+  .ql-float-meta {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--muted); margin-bottom: 6px;
+  }
+  .ql-float-meta span { font-size: 13px; }
+  .ql-float-date {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 20px; font-weight: 800; color: var(--text);
+    margin-bottom: 12px; line-height: 1.2;
+  }
+  .ql-float-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    background: none; border: none; padding: 0; cursor: pointer; width: 100%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px; font-weight: 600; color: var(--text);
+  }
+  .ql-float-btn-arrow {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* Texte central */
+  .ql-center {
+    flex: 1; text-align: center;
+  }
+  /* Icône ondulée style Lifer */
+  .ql-icon-wrap {
+    width: 62px; height: 62px; border-radius: 18px; margin: 0 auto 28px;
+    background: linear-gradient(135deg, #eef3fb, #dbeafe);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow:
+      0 0 0 10px rgba(32,146,197,0.10),
+      0 0 0 22px rgba(32,146,197,0.06),
+      0 0 0 36px rgba(32,146,197,0.03),
+      0 8px 32px rgba(31,70,131,0.18);
+  }
+  .ql-h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(26px, 3.5vw, 44px); font-weight: 800;
+    line-height: 1.15; letter-spacing: -.025em;
+    color: var(--text); margin-bottom: 16px;
+  }
+  /* Mot souligné gradient style Lifer "easier" */
+  .ql-h2 .ul {
+    position: relative; display: inline-block;
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .ql-h2 .ul::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--blue-mid) 0%, var(--blue) 60%, #0d1428 100%);
+    border-radius: 3px;
+    opacity: 0.85;
+  }
+  .ql-sub {
+    font-size: 15px; color: var(--muted); line-height: 1.7;
+    margin-bottom: 28px; max-width: 380px; margin-left: auto; margin-right: auto;
+  }
+  .ql-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1.5px solid var(--border);
+    padding: 13px 28px; border-radius: 100px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; font-weight: 600; color: var(--text);
+    text-decoration: none; transition: all .2s; background: var(--white);
+  }
+  .ql-cta:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* Photo droite — badge simple en bas */
+  .ql-photo-right {
+    width: 240px; flex-shrink: 0;
+    border-radius: 20px; overflow: hidden; position: relative;
+    height: 340px;
+  }
+  .ql-photo-right img { width:100%;height:100%;object-fit:cover;display:block; }
+  .ql-right-badge {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.96); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border);
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .ql-right-badge-icon { font-size: 20px; }
+  .ql-right-badge-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px; font-weight: 700; color: var(--text);
+  }
+
+  /* Photo bas centrée — texte overlay */
+  .ql-bottom {
+    width: 280px; height: 200px; margin: 0 auto;
+    border-radius: 20px; overflow: hidden; position: relative;
+  }
+  .ql-bottom img { width:100%;height:100%;object-fit:cover;display:block; }
+  .ql-bottom-overlay {
+    position: absolute; inset: 0; padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
+    display: flex; align-items: flex-end;
+  }
+  .ql-bottom-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; font-weight: 700; color: #fff; line-height: 1.4;
+  }
+
+
+  /* ══ QUAD SCATTER — Animation auto à l'entrée dans le viewport ═ */
+  #quad-scatter { position: relative; background: var(--white); }
+  .qs-pin {
+    min-height: 100vh; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow-x: clip; overflow-y: visible;
+    background: var(--white); padding: 200px 0 260px;
+  }
+  .qs-photo {
+    position: absolute; border-radius: 22px; overflow: hidden;
+    will-change: transform;
+  }
+  /* Formats EXACTEMENT comme Lifer — paysage haut/bas, portrait gauche/droite */
+  .qs-top    { width: 368px; height: 218px; z-index: 4; }   /* paysage large */
+  .qs-left   { width: 260px; height: 420px; z-index: 3; }   /* portrait */
+  .qs-right  { width: 260px; height: 420px; z-index: 3; }   /* portrait */
+  .qs-bottom { width: 368px; height: 218px; z-index: 2; }   /* paysage large */
+  .qs-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Texte central */
+  .qs-text {
+    position: relative; z-index: 10; text-align: center;
+    max-width: 400px; opacity: 0; transform: scale(0.92);
+  }
+
+  /* Dots en grille pattern CSS — style Lifer */
+  /* Dots — centrés entre logo et titre, discrets */
+  .qs-dots-bg {
+    position: absolute; z-index: 1; pointer-events: none;
+    width: 540px; height: 110px;
+    top: 50%; left: 50%; transform: translate(-50%, -65px);
+    background-image: radial-gradient(circle, rgba(31,70,131,0.09) 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+    mask-image: radial-gradient(ellipse 80% 100% at 50% 50%, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 100% at 50% 50%, black 40%, transparent 100%);
+  }
+  /* Halo lumineux derrière le logo — style Lifer */
+  .qs-icon-halo {
+    position: absolute; z-index: 2; pointer-events: none;
+    width: 220px; height: 220px; border-radius: 50%;
+    top: 50%; left: 50%; transform: translate(-50%, -215px);
+    background: radial-gradient(ellipse at center,
+      rgba(32,146,197,0.50) 0%,
+      rgba(31,70,131,0.25) 40%,
+      transparent 72%);
+    filter: blur(22px);
+  }
+
+  /* Badges */
+  .qs-badge-top {
+    position: absolute; bottom: 14px; left: 14px;
+    background: rgba(255,255,255,0.96); border-radius: 100px;
+    padding: 7px 16px; font-size: 13px; font-weight: 700; color: var(--text);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .qs-badge-bottom {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
+    display: flex; align-items: flex-end; padding: 18px;
+  }
+  .qs-badge-bottom p { color: #fff; font-size: 13px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.4; }
+  /* Badge unifié gauche + droite — barre blanche en bas de l'image */
+  .qs-badge-side {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0,0,0,0.06); padding: 14px 18px;
+  }
+  .qs-badge-side .qs-side-label {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--blue-mid);
+    margin-bottom: 5px;
+  }
+  .qs-badge-side .qs-side-loc {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800;
+    color: var(--text); line-height: 1.25;
+  }
+
+  /* ══ MISSION BANNER — style Lifer full-width card ═══ */
+  #mission { padding: 60px 52px; background: var(--white); position: relative; z-index: 10; isolation: isolate; }
+  .mission-card {
+    max-width: 1200px; margin: 0 auto;
+    border-radius: 28px; overflow: hidden;
+    display: grid; grid-template-columns: 44% 56%;
+    min-height: 420px;
+    box-shadow: 0 4px 40px rgba(31,70,131,0.10);
+  }
+  .mission-left {
+    background: var(--white);
+    padding: 56px 52px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .mission-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--blue); background: var(--blue-pale);
+    border-radius: 100px; padding: 6px 16px;
+    margin-bottom: 28px; width: fit-content;
+  }
+  .mission-h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(26px, 3.2vw, 44px); font-weight: 800;
+    line-height: 1.12; letter-spacing: -.02em;
+    color: var(--text); margin-bottom: 20px;
+  }
+  .mission-sub {
+    font-size: 15px; line-height: 1.7; color: var(--muted);
+    max-width: 380px; margin-bottom: 36px;
+  }
+  .mission-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .mission-cta-primary {
+    background: var(--blue); color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700;
+    padding: 13px 26px; border-radius: 100px; text-decoration: none;
+    transition: background .25s, transform .2s;
+  }
+  .mission-cta-primary:hover { background: var(--blue-mid); transform: translateY(-2px); }
+  .mission-cta-secondary {
+    background: transparent; color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 13px 26px; border-radius: 100px; text-decoration: none;
+    border: 1.5px solid var(--border); transition: border-color .25s, transform .2s;
+  }
+  .mission-cta-secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+  .mission-right {
+    position: relative; overflow: hidden;
+  }
+  .mission-right img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
+    display: block;
+  }
+  /* Badge flottant sur la photo */
+  .mission-float {
+    position: absolute; bottom: 28px; left: 28px;
+    background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+    border-radius: 18px; padding: 16px 22px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .mission-float-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--blue-pale); display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .mission-float-label { font-size: 11px; color: var(--muted); margin-bottom: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .mission-float-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; color: var(--text); }
+  /* Responsive mission */
+  @media (max-width: 900px) {
+    .mission-card { grid-template-columns: 1fr; }
+    .mission-right { min-height: 280px; }
+    #mission { padding: 40px 20px; }
+    .mission-left { padding: 36px 28px; }
+  }
+
+  /* ══ RELAIS NUMÉRIQUE — carte full-width style Lifer ══ */
+  #relais { padding: 0 52px 80px; background: var(--white); }
+  .relais-card {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 46% 54%;
+    border-radius: 28px; overflow: hidden;
+    box-shadow: 0 6px 48px rgba(31,70,131,0.13);
+  }
+  /* Gauche — fond bleu institutionnel */
+  .relais-left {
+    background: var(--blue);
+    padding: 44px 48px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .relais-left::before {
+    content: ''; position: absolute; inset: 0;
+    background: url('public/images/real/relais numérique.jpg') center/cover no-repeat;
+    opacity: 0.12; mix-blend-mode: luminosity;
+  }
+  /* Logo Relais Numériques textuel au-dessus du titre */
+  /* Vrai logo Relais Numériques en image */
+  .relais-logo-img-wrap {
+    margin-bottom: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px 16px 8px;
+    display: inline-block; width: fit-content;
+  }
+  .relais-logo-img {
+    height: 52px; object-fit: contain; display: block;
+    width: auto; max-width: 220px;
+  }
+  .relais-logo-tag {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .relais-logo-tag-inner {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 10px; padding: 7px 14px;
+  }
+  .relais-logo-name {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 900;
+    letter-spacing: .14em; text-transform: uppercase; color: #fff; line-height: 1.3;
+  }
+  .relais-logo-sub {
+    font-size: 9px; font-weight: 500; color: rgba(255,255,255,0.55);
+    letter-spacing: .04em;
+  }
+  .relais-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 100px; padding: 5px 14px;
+    font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.75); margin-bottom: 18px; width: fit-content;
+  }
+  .relais-h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(28px, 3.2vw, 46px); font-weight: 800;
+    line-height: 1.05; letter-spacing: -.025em;
+    color: #fff; margin-bottom: 16px;
+  }
+  .relais-h2 em {
+    font-style: normal; color: #6db8e8;
+  }
+  .relais-desc {
+    font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.80);
+    max-width: 400px; margin-bottom: 24px;
+  }
+  .relais-desc strong { color: #fff; }
+  .relais-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    padding: 10px 18px; border-radius: 100px; text-decoration: none;
+    width: fit-content; transition: background .2s, transform .2s;
+  }
+  .relais-cta:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+  .relais-cta img { height: 36px; width: auto; border-radius: 8px; display: block; }
+  /* Droite — blanc avec carte tarifs */
+  .relais-right {
+    background: #f5f8ff;
+    padding: 36px 44px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .relais-emmaus-logo {
+    display: block;
+    height: 90px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 20px;
+  }
+  .relais-tarifs-header {
+    margin-bottom: 16px;
+  }
+  .relais-tarifs-label {
+    font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 6px;
+  }
+  .relais-tarifs-title {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 800;
+    color: var(--text);
+  }
+  .relais-rows { display: flex; flex-direction: column; gap: 2px; margin-bottom: 20px; }
+  .relais-row {
+    background: #fff; border: 1px solid var(--border); border-radius: 14px;
+    padding: 13px 18px;
+    display: flex; align-items: center; gap: 14px;
+    transition: box-shadow .2s;
+  }
+  .relais-row:hover { box-shadow: 0 4px 20px rgba(31,70,131,0.08); }
+  .relais-row-icon {
+    width: 50px; height: 50px; border-radius: 10px; background: transparent;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .relais-row-icon img { width: 48px; height: 48px; object-fit: contain; display: block; }
+  .relais-row-body { flex: 1; }
+  .relais-row-name {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700;
+    color: var(--text); margin-bottom: 2px;
+  }
+  .relais-row-desc { font-size: 12px; color: var(--muted); }
+  .relais-row-price { text-align: right; }
+  .relais-row-from { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .relais-row-amount {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; font-weight: 800;
+    color: var(--blue); line-height: 1;
+  }
+  .relais-note {
+    font-size: 12px; color: var(--muted); margin-bottom: 20px; line-height: 1.6;
+  }
+  .relais-stock-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue); color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700;
+    padding: 13px 24px; border-radius: 12px; text-decoration: none;
+    transition: background .2s, transform .2s;
+  }
+  .relais-stock-btn:hover { background: var(--blue-mid); transform: translateY(-2px); }
+  .relais-legal {
+    font-size: 11px; color: var(--muted); margin-top: 14px; font-style: italic;
+  }
+  @media (max-width: 900px) {
+    .relais-card { grid-template-columns: 1fr; }
+    .relais-left { padding: 40px 28px; }
+    .relais-right { padding: 36px 24px; }
+    #relais { padding: 0 20px 60px; }
+  }
+
+  /* ══ FEATURES ═════════════════════════════════════════ */
+  /* ── Features — strip horizontal bleu ── */
+  #features { background: #1f4683; padding: 0; overflow: hidden; }
+  .features-inner { max-width: 1400px; margin: 0 auto; }
+  .section-pill {
+    display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted);
+    border: 1.5px solid var(--border); padding: 5px 16px; border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .features-h2 { display: none; } /* titre supprimé — déjà dans #quad-scatter */
+  .features-sub { display: none; }
+  .section-pill { display: none; } /* masqué dans ce contexte */
+
+  /* Strip 6 items horizontal */
+  .features-grid {
+    display: flex; flex-wrap: nowrap;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .feat-card {
+    flex: 1; padding: 36px 28px;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    transition: background .25s;
+    position: relative;
+  }
+  .feat-card:last-child { border-right: none; }
+  .feat-card:hover { background: rgba(255,255,255,0.06); }
+  .feat-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .feat-icon svg { color: #fff; }
+  .feat-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px; font-weight: 700; color: #fff;
+    line-height: 1.3; margin: 0;
+  }
+  .feat-desc {
+    font-size: 13px; line-height: 1.6;
+    color: rgba(255,255,255,0.65); margin: 0;
+  }
+
+  /* ══ RÉSULTATS — STYLE LIFER ══════════════════════════ */
+  #results { padding: 100px 52px; background: var(--white); }
+  .results-lifer { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 280px 1fr; gap: 72px; align-items: start; }
+  .rl-left-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(28px,3.2vw,46px); font-weight: 800; line-height: 1.12; letter-spacing: -.025em; color: var(--text); margin-bottom: 20px; }
+  .rl-left-sub { font-size: 15px; line-height: 1.75; color: var(--muted); }
+  .rl-right { display: flex; flex-direction: column; gap: 16px; }
+  .rl-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .rl-card { background: #f8f9fb; border-radius: 20px; padding: 24px 26px; border: 1px solid var(--border); }
+  .rl-card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 18px; line-height: 1.3; }
+  /* Carte 1 — formats */
+  .rl-formats { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .rl-format-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 1px solid var(--border); border-radius: 100px; padding: 7px 14px; font-size: 13px; font-weight: 600; color: var(--text); width: fit-content; }
+  .rl-format-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  /* Carte 2 — barres */
+  .rl-bars-wrap { display: flex; align-items: flex-end; gap: 10px; height: 88px; margin-bottom: 16px; }
+  .rl-bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; height: 100%; justify-content: flex-end; }
+  .rl-bar-block { width: 100%; border-radius: 6px 6px 0 0; transition: height .4s ease; }
+  .rl-bar-lbl { font-size: 10px; color: var(--muted); text-align: center; line-height: 1.3; white-space: nowrap; }
+  .rl-bar-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; color: var(--blue); }
+  .rl-card-sub { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  /* Vidéo */
+  .rl-video-wrap { border-radius: 20px; overflow: hidden; height: 370px; position: relative; background: #0d1428; }
+  .rl-video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .rl-video-badge { position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,0.14); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.22); border-radius: 100px; padding: 7px 18px; font-size: 12px; font-weight: 600; color: #fff; letter-spacing: .02em; }
+  .rl-sound-btn { position: absolute; top: 16px; left: 16px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.22); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.35); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s, transform .2s; z-index: 10; }
+  .rl-sound-btn:hover { background: rgba(255,255,255,0.40); transform: scale(1.1); }
+  .rl-sound-btn svg { width: 18px; height: 18px; color: #fff; }
+
+  /* Effet pulse d'attention — 3 anneaux qui s'expandent */
+  .rl-sound-btn::before,
+  .rl-sound-btn::after {
+    content: ''; position: absolute; inset: 0; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.6);
+    animation: sound-pulse 2s ease-out infinite;
+  }
+  .rl-sound-btn::after { animation-delay: 0.7s; }
+  @keyframes sound-pulse {
+    0%   { transform: scale(1); opacity: .8; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  /* Stop pulse après activation du son */
+  .rl-sound-btn.active::before,
+  .rl-sound-btn.active::after { animation: none; }
+
+  /* Tooltip "Activer le son" */
+  .rl-sound-btn .sound-tooltip {
+    position: absolute; left: 54px; top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.72); color: #fff; font-size: 11px; font-weight: 600;
+    padding: 5px 10px; border-radius: 6px; white-space: nowrap;
+    pointer-events: none; opacity: 0; transition: opacity .2s;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .rl-sound-btn:hover .sound-tooltip { opacity: 1; }
+  .rl-sound-btn.active .sound-tooltip { display: none; }
+  /* Responsive results */
+  @media (max-width: 900px) {
+    .results-lifer { grid-template-columns: 1fr; gap: 40px; }
+    .rl-cards-row { grid-template-columns: 1fr; }
+    .rl-video-wrap { height: 260px; }
+  }
+
+  /* ══ GALERIE ATELIERS ══════════════════════════════════ */
+  #galerie { background: var(--white); padding: 80px 0 60px; overflow: hidden; }
+
+  /* Header 2 colonnes : titre gauche, hint droite */
+  .gal-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 52px; margin-bottom: 40px;
+    max-width: 1400px; margin-left: auto; margin-right: auto;
+    margin-bottom: 40px;
+  }
+  .gal-label {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--blue-mid);
+    margin-bottom: 12px;
+  }
+  .gal-h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; color: var(--text); line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .gal-sub { font-size: .9rem; color: var(--muted); line-height: 1.5; }
+  .gal-scroll-hint {
+    display: flex; align-items: center; gap: 10px;
+    font-size: .82rem; font-weight: 600; color: var(--blue);
+    white-space: nowrap; padding-bottom: 4px;
+  }
+  .gal-scroll-hint svg { transition: transform .3s; }
+  .gal-scroll-hint:hover svg { transform: translateX(4px); }
+
+  /* Track scrollable */
+  .gal-track-wrap { position: relative; }
+  .gal-track-wrap::before,
+  .gal-track-wrap::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 80px;
+    z-index: 2; pointer-events: none;
+  }
+  .gal-track-wrap::before { left: 0; background: linear-gradient(to right, var(--white), transparent); }
+  .gal-track-wrap::after  { right: 0; background: linear-gradient(to left,  var(--white), transparent); }
+
+  .gal-track {
+    display: flex; gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: none; cursor: grab;
+    padding: 8px 52px 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gal-track::-webkit-scrollbar { display: none; }
+  .gal-track.grabbing { cursor: grabbing; }
+
+  /* Photos individuelles larges */
+  .gal-photo {
+    position: relative; flex-shrink: 0; border-radius: 16px;
+    overflow: hidden; scroll-snap-align: start;
+    height: 380px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    transition: box-shadow .3s, transform .3s;
+  }
+  .gal-photo:hover { box-shadow: 0 10px 40px rgba(0,0,0,.14); transform: translateY(-3px); }
+  .gal-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .5s;
+  }
+  .gal-photo:hover img { transform: scale(1.04); }
+  .gal-photo.gal-wide { width: 500px; }
+  .gal-photo.gal-med  { width: 340px; }
+  .gal-photo.gal-tall { width: 260px; }
+
+  /* Groupe 2 empilées */
+  .gal-stack {
+    display: flex; flex-direction: column; gap: 14px;
+    flex-shrink: 0; height: 380px;
+    scroll-snap-align: start;
+  }
+  .gal-stack .gal-photo {
+    flex: 1; height: auto; width: 320px;
+  }
+  .gal-stack .gal-photo.gal-wide { width: 360px; }
+
+  /* Caption badge */
+  .gal-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,20,40,.75) 0%, transparent 100%);
+    padding: 28px 14px 12px;
+    font-size: 11px; font-weight: 700; color: #fff;
+    letter-spacing: .04em; text-transform: uppercase;
+    opacity: 0; transition: opacity .3s;
+  }
+  .gal-photo:hover .gal-caption { opacity: 1; }
+
+  /* Flèches */
+  .gal-arrows { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
+  .gal-nav-btn {
+    width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--border);
+    background: var(--white); color: var(--text); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .2s, color .2s, box-shadow .2s;
+  }
+  .gal-nav-btn:hover { border-color: var(--blue); color: var(--blue); box-shadow: 0 4px 16px rgba(31,70,131,.14); }
+
+  @media (max-width: 768px) {
+    #galerie { padding: 60px 0 40px; }
+    .gal-header { padding: 0 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .gal-track { padding: 8px 24px 20px; }
+    .gal-photo.gal-wide { width: 320px; }
+    .gal-photo.gal-med  { width: 260px; }
+    .gal-photo.gal-tall { width: 200px; }
+    .gal-stack .gal-photo { width: 240px; }
+    .gal-caption { opacity: 1; }
+  }
+
+  /* ══ CTA DARK ═════════════════════════════════════════ */
+  #cta-dark {
+    padding: 100px 52px;
+    background: var(--blue-dark);
+    position: relative; overflow: hidden;
+  }
+  .cta-dark-blob1 { position:absolute; width:600px; height:600px; top:-200px; right:-100px; background:rgba(32,146,197,0.15); border-radius:50%; filter:blur(100px); }
+  .cta-dark-blob2 { position:absolute; width:400px; height:400px; bottom:-100px; left:0; background:rgba(31,70,131,0.2); border-radius:50%; filter:blur(80px); }
+  .cta-dark-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+  .cta-dark-h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(32px,4vw,56px); font-weight: 800; color: var(--white); line-height: 1.1; letter-spacing: -.02em; margin-bottom: 40px; }
+  .cta-dark-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-dark-primary {
+    background: var(--white); color: var(--blue-dark);
+    padding: 14px 30px; border-radius: 100px;
+    font-size: 14px; font-weight: 700; transition: opacity .2s;
+    display: inline-block;
+  }
+  .btn-dark-primary:hover { opacity: .88; }
+  .btn-dark-secondary {
+    color: rgba(255,255,255,.7); font-size: 14px; font-weight: 500;
+    border: 1.5px solid rgba(255,255,255,.25); padding: 13px 24px; border-radius: 100px;
+    transition: all .2s;
+  }
+  .btn-dark-secondary:hover { color: var(--white); border-color: rgba(255,255,255,.6); }
+
+  /* Card dashboard */
+  .cta-dark-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px; padding: 28px;
+  }
+  .cta-card-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .cta-card-label { font-size: 12px; color: rgba(255,255,255,.5); font-weight: 500; }
+  .cta-card-time { font-size: 11px; color: rgba(255,255,255,.35); }
+  .cta-card-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 52px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 6px; }
+  .cta-card-unit { font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 24px; }
+  .cta-card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cta-card-stat { background: rgba(255,255,255,0.06); border-radius: 10px; padding: 14px; }
+  .cta-card-stat-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); }
+  .cta-card-stat-lbl { font-size: 11px; color: rgba(255,255,255,.4); }
+
+  /* ══ TÉMOIGNAGES ══════════════════════════════════════ */
+  /* ══ TÉMOIGNAGES — Scroll horizontal style Apple ════ */
+  #testimonials { padding: 96px 0 80px; background: var(--white); overflow: hidden; }
+  .testi-inner { max-width: 1400px; margin: 0 auto; }
+  .testi-header { text-align: center; padding: 0 52px; margin-bottom: 56px; }
+  .testi-label {
+    font-size: 11px; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--blue-mid); margin-bottom: 12px;
+  }
+  .testi-h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(26px, 3vw, 42px); font-weight: 800;
+    letter-spacing: -.02em; color: var(--text); line-height: 1.15;
+  }
+
+  /* Track scrollable */
+  .testi-track-wrap { position: relative; }
+  .testi-track {
+    display: flex; gap: 20px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; cursor: grab;
+    padding: 12px 52px 32px;
+  }
+  .testi-track::-webkit-scrollbar { display: none; }
+  .testi-track.grabbing { cursor: grabbing; }
+
+  /* Fade edges */
+  .testi-track-wrap::before,
+  .testi-track-wrap::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
+  }
+  .testi-track-wrap::before { left: 0; background: linear-gradient(to right, var(--white), transparent); }
+  .testi-track-wrap::after  { right: 0; background: linear-gradient(to left, var(--white), transparent); }
+
+  /* ============================================
+     TÉMOIGNAGES — Cartes premium
+     ============================================ */
+  .testi-card {
+    width: 320px; flex-shrink: 0; scroll-snap-align: start;
+    background: #FFFFFF; border-radius: 16px;
+    font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
+    color: #1c1e21; overflow: hidden;
+    box-shadow: 0 1px 2px rgba(31,70,131,0.04), 0 8px 24px rgba(31,70,131,0.08);
+    border: 1px solid rgba(31,70,131,0.08);
+    transition: transform .35s ease, box-shadow .35s ease;
+    display: flex; flex-direction: column; min-height: 320px;
+  }
+  .testi-card:hover { transform: translateY(-4px); box-shadow: 0 4px 8px rgba(31,70,131,0.06), 0 16px 40px rgba(31,70,131,0.14); }
+
+  /* --- Cartes social (Facebook / LinkedIn) --- */
+  .social-card { padding: 16px 16px 12px; position: relative; }
+  .social-platform {
+    position: absolute; top: 14px; right: 14px;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+    font-family: Arial, sans-serif; letter-spacing: 0;
+  }
+  .social-platform.fb { background: #4267B2; }
+  .social-platform.li { background: #0A66C2; font-size: 9px; }
+  .social-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+  .social-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #1f4683 0%, #2092c5 100%);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif;
+    flex-shrink: 0; letter-spacing: .5px;
+  }
+  .social-identity { flex: 1; min-width: 0; padding-right: 28px; }
+  .social-name { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; color: #050505; line-height: 1.25; }
+  .social-name .verified {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 14px; height: 14px; background: #0A66C2; color: #fff;
+    border-radius: 50%; font-size: 9px; font-weight: 700;
+  }
+  .social-meta { font-size: 12px; color: #65676B; line-height: 1.35; margin-top: 2px; }
+  .social-meta .tag-action { color: #050505; }
+  .social-meta .tag-action b { font-weight: 600; }
+  .social-sub { font-size: 11.5px; color: #65676B; margin-top: 1px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .social-date { font-size: 11px; color: #65676B; margin-top: 2px; }
+  .social-text { font-size: 13.5px; line-height: 1.55; color: #1c1e21; margin: 0 0 14px; flex: 1; font-family: 'DM Sans', system-ui, sans-serif; }
+  .social-reactions {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 10px; border-top: 1px solid #e4e6eb;
+    font-size: 12px; color: #65676B;
+  }
+  .reaction-left { display: flex; align-items: center; gap: 4px; }
+  .reaction-pill { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; font-size: 10px; color: #fff; }
+  .reaction-pill.like { background: #1877F2; }
+  .reaction-right { display: flex; gap: 14px; font-size: 12px; }
+  .linkedin-actions { display: flex; align-items: center; gap: 10px; padding-top: 10px; border-top: 1px solid #e4e6eb; font-size: 12px; color: #5E5E5E; font-weight: 600; flex-wrap: wrap; }
+  .li-reaction { display: inline-flex; align-items: center; gap: 4px; }
+  .li-heart { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: #DF704D; color: #fff; font-size: 9px; }
+  .li-sep { width: 3px; height: 3px; border-radius: 50%; background: #b0b0b0; }
+
+  /* --- Cartes Livre d'or --- */
+  .goldbook-card { padding: 0; }
+  .goldbook-photo { width: 100%; height: 200px; overflow: hidden; position: relative; }
+  .goldbook-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .6s ease; }
+  .testi-card:hover .goldbook-photo img { transform: scale(1.05); }
+  .goldbook-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(31,70,131,0.55) 100%); pointer-events: none; }
+  .goldbook-quote-icon {
+    position: absolute; top: 14px; left: 14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center;
+    color: #1f4683; font-family: 'Georgia', serif; font-size: 26px; font-weight: 700;
+    line-height: 1; padding-bottom: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .goldbook-body { padding: 20px 20px 22px; display: flex; flex-direction: column; flex: 1; }
+  .goldbook-stars { color: #f5a623; font-size: 13px; letter-spacing: 2px; margin-bottom: 10px; }
+  .goldbook-text { font-size: 14px; line-height: 1.6; color: #2a2f3a; margin: 0 0 16px; font-family: 'DM Sans', system-ui, sans-serif; font-style: italic; flex: 1; }
+  .goldbook-author { display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid rgba(31,70,131,0.1); }
+  .goldbook-author-badge { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #1f4683, #2092c5); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .goldbook-author-name { font-weight: 700; font-size: 14px; color: #1f4683; font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.2; }
+  .goldbook-author-loc { font-size: 11.5px; color: #6b7280; margin-top: 2px; display: block; }
+
+  /* Flèches nav */
+  .testi-arrows { display: flex; justify-content: center; gap: 12px; margin-top: 8px; }
+  .testi-nav-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1.5px solid var(--border); background: var(--white); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); transition: all .2s; box-shadow: 0 2px 8px rgba(31,70,131,0.08);
+  }
+  .testi-nav-btn:hover { border-color: var(--blue); color: var(--blue); box-shadow: 0 4px 16px rgba(31,70,131,0.14); }
+
+  @media (max-width: 768px) {
+    #testimonials { padding: 72px 0 60px; }
+    .testi-track { padding: 12px 24px 28px; }
+    .testi-card { flex: 0 0 300px; }
+    .testi-header { padding: 0 24px; }
+  }
+
+  /* ══ PRESSE — Médias régionaux ══════════════════════════ */
+  #presse { padding: 64px 52px; background: #FAFAF8; overflow: hidden; }
+  .presse-inner { max-width: 1180px; margin: 0 auto; }
+
+  .presse-header { text-align: center; margin-bottom: 40px; }
+  .presse-label {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--blue-mid);
+    background: rgba(32,146,197,.1); border-radius: 20px;
+    padding: 5px 14px; margin-bottom: 12px;
+  }
+  .presse-h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+    font-weight: 800; color: var(--text); line-height: 1.15;
+  }
+
+  /* Grille asymétrique : journal gauche | contenu droite */
+  .presse-grid {
+    display: grid;
+    grid-template-columns: 50% 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* ── Colonne gauche : encadré journal ── */
+  .presse-journal-col { position: relative; }
+  .presse-journal-frame {
+    position: relative;
+    background: #fff;
+    border: 1px solid #c8c4bb;
+    border-radius: 6px;
+    padding: 10px;
+    transform: rotate(-1.2deg);
+    transform-origin: center bottom;
+    box-shadow:
+      0 2px 8px rgba(0,0,0,.1),
+      0 12px 40px rgba(31,70,131,0.13),
+      5px 5px 0 #dedad2;
+    transition: transform .4s cubic-bezier(.23,1,.32,1), box-shadow .4s;
+  }
+  .presse-journal-frame:hover {
+    transform: rotate(0deg);
+    box-shadow:
+      0 4px 16px rgba(0,0,0,.1),
+      0 20px 60px rgba(31,70,131,0.15),
+      3px 3px 0 #dedad2;
+  }
+  .presse-article-img {
+    width: 100%; height: auto; display: block;
+    border-radius: 2px;
+  }
+  /* Badge overlay bas */
+  .presse-media-badge {
+    position: absolute; bottom: 10px; left: 10px; right: 10px;
+    background: linear-gradient(to top, rgba(13,20,40,0.88) 0%, transparent 100%);
+    padding: 32px 14px 12px; border-radius: 0 0 2px 2px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+  }
+  .presse-media-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800; font-size: 13px; color: #fff; letter-spacing: .02em;
+  }
+  .presse-media-date { font-size: 10px; color: rgba(255,255,255,.72); font-style: italic; }
+
+  /* ── Colonne droite : citation + faits + radio ── */
+  .presse-content-col {
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .presse-col-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--blue);
+    padding-bottom: 12px; border-bottom: 1.5px solid var(--border);
+  }
+
+  /* Citation */
+  .presse-quote {
+    position: relative;
+    border-left: 3px solid var(--blue-mid);
+    padding: 14px 16px 14px 22px;
+    background: rgba(32,146,197,.04);
+    border-radius: 0 12px 12px 0;
+    margin: 0;
+  }
+  .presse-quote-mark {
+    position: absolute; top: 4px; left: 6px;
+    font-size: 42px; line-height: 1;
+    color: var(--blue-mid); opacity: .18;
+    font-family: Georgia, serif; pointer-events: none;
+  }
+  .presse-quote p {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .9rem; font-style: italic;
+    color: var(--text); line-height: 1.6; margin: 0;
+  }
+  .presse-quote-footer {
+    font-style: normal; font-size: .76rem; color: var(--muted);
+    margin-top: 8px; display: block;
+  }
+  .presse-quote-footer strong { color: var(--blue); }
+  .presse-quote-context {
+    font-size: .75rem; color: var(--muted);
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .presse-quote-context span {
+    background: #eef3ff; color: var(--blue);
+    border-radius: 20px; padding: 2px 10px;
+    font-weight: 600; font-size: .72rem;
+  }
+
+  /* Founders mini card */
+  .presse-founders-mini {
+    display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, var(--blue) 0%, #1a3d7a 100%);
+    border-radius: 14px; padding: 14px 18px;
+  }
+  .presse-founders-mini-avatars { display: flex; flex-shrink: 0; }
+  .presse-founders-mini-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; color: #fff;
+    border: 2px solid rgba(255,255,255,.35);
+    margin-right: -6px;
+  }
+  .presse-founders-mini-avatars { margin-right: 6px; }
+  .presse-founders-mini-name { font-size: .84rem; font-weight: 700; color: #fff; }
+  .presse-founders-mini-role { font-size: .72rem; color: rgba(255,255,255,.72); margin-top: 1px; }
+
+  /* Pills faits */
+  .presse-facts-inline { display: flex; gap: 8px; flex-wrap: wrap; }
+  .presse-fact-pill {
+    display: flex; align-items: center; gap: 5px;
+    background: #eef3ff; border-radius: 30px;
+    padding: 5px 11px; font-size: .75rem; color: var(--blue); font-weight: 600;
+  }
+
+  /* ── Bloc Radio Banquise (intégré dans la col droite) ── */
+  .presse-radio-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 12px rgba(31,70,131,0.06);
+  }
+  .presse-radio-header {
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 14px; margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .presse-radio-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: linear-gradient(135deg,#0d1428,#2a2a4a);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .presse-radio-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800; font-size: .9rem; color: var(--text);
+  }
+  .presse-radio-sub { font-size: .75rem; color: var(--muted); margin-top: 1px; }
+
+  /* Duo photos radio compact */
+  .presse-radio-photos {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    margin-bottom: 14px;
+  }
+  .presse-radio-photo-wrap {
+    position: relative; border-radius: 8px; overflow: hidden;
+    border: 1px solid #bbb;
+  }
+  .presse-radio-photo-wrap img {
+    width: 100%; height: 120px;
+    object-fit: cover; object-position: center 20%;
+    display: block;
+    filter: grayscale(100%) contrast(1.08) brightness(1.03);
+    transition: filter .3s;
+  }
+  .presse-radio-block:hover .presse-radio-photo-wrap img { filter: grayscale(75%); }
+  .presse-radio-photo-name {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.6);
+    color: #fff; font-size: 10px; font-weight: 600;
+    text-align: center; padding: 4px 4px; letter-spacing: .04em;
+  }
+
+  /* Texte + badge radio */
+  .presse-radio-text {
+    font-size: .8rem; color: var(--text); line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .presse-radio-text strong { color: var(--blue); }
+  .presse-radio-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg,#0d1428,#1a2a4a);
+    color: #fff; border-radius: 30px;
+    padding: 5px 12px; font-size: .72rem; font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .presse-radio-badge::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: #ef4444; box-shadow: 0 0 0 2px rgba(239,68,68,.3);
+    animation: pulse-red 1.5s ease infinite;
+  }
+  @keyframes pulse-red {
+    0%,100% { box-shadow: 0 0 0 2px rgba(239,68,68,.3); }
+    50%      { box-shadow: 0 0 0 5px rgba(239,68,68,.1); }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    #presse { padding: 48px 24px; }
+    .presse-grid { grid-template-columns: 1fr; gap: 28px; }
+    .presse-journal-frame { transform: rotate(-0.6deg); }
+    .presse-h2 { font-size: 1.6rem; }
+  }
+
+  /* ══ CONTACT ══════════════════════════════════════════ */
+  #contact { padding: 100px 52px; background: var(--bg); position: relative; overflow: hidden; }
+  .contact-blob { position:absolute; width:600px; height:600px; top:30%; left:50%; transform:translate(-50%,-50%); background:rgba(32,146,197,0.08); border-radius:50%; filter:blur(120px); pointer-events:none; }
+  .contact-wrap { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+  /* En-tête centré */
+  .contact-header { text-align: center; margin-bottom: 64px; }
+  .contact-h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(32px,4.5vw,58px); font-weight: 800; line-height: 1.1; letter-spacing: -.02em; color: var(--text); margin-bottom: 18px; }
+  .contact-sub { font-size: 16px; line-height: 1.75; color: var(--muted); max-width: 560px; margin: 0 auto; }
+
+  /* Grille 2 colonnes */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+  /* Colonne gauche — formulaire */
+  .contact-form-col {
+    background: var(--white); border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 40px 40px;
+    box-shadow: 0 2px 20px rgba(31,70,131,0.06);
+  }
+  .contact-form-col h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;
+    color: var(--text); margin-bottom: 24px;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .contact-field { display: flex; flex-direction: column; gap: 6px; }
+  .contact-label { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+  .contact-input, .contact-textarea {
+    font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text);
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 12px 16px;
+    outline: none; transition: border-color .2s, box-shadow .2s;
+    width: 100%; box-sizing: border-box;
+  }
+  .contact-input:focus, .contact-textarea:focus {
+    border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(32,146,197,0.12);
+  }
+  .contact-textarea { resize: vertical; min-height: 110px; }
+  .contact-submit {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700;
+    background: var(--blue); color: #fff; border: none; border-radius: 12px;
+    padding: 14px 28px; cursor: pointer; width: 100%;
+    transition: background .2s, transform .15s;
+    margin-top: 4px;
+  }
+  .contact-submit:hover { background: var(--blue-mid); transform: translateY(-2px); }
+
+  /* Colonne droite — infos + newsletter */
+  .contact-info-col { display: flex; flex-direction: column; gap: 24px; }
+
+  /* Carte coordonnées */
+  .contact-card {
+    background: var(--white); border-radius: 20px;
+    border: 1px solid var(--border); padding: 36px 40px;
+    box-shadow: 0 2px 20px rgba(31,70,131,0.06);
+    flex: 1;
+  }
+  .contact-card h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;
+    color: var(--text); margin-bottom: 24px;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 14px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px; border-radius: 12px;
+    background: var(--bg); border: 1px solid var(--border);
+    text-decoration: none; transition: border-color .2s, box-shadow .2s, transform .15s;
+  }
+  .contact-link:hover { border-color: var(--blue-mid); box-shadow: 0 4px 16px rgba(31,70,131,0.10); transform: translateY(-1px); }
+  .contact-link-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .contact-link-icon.email { background: #eef3fb; }
+  .contact-link-icon.fb { background: #e7f0ff; }
+  .contact-link-icon.li { background: #e8f4fc; }
+  .contact-link-icon.phone { background: #edfaf3; }
+  .contact-link-text { flex: 1; }
+  .contact-link-label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .contact-link-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-top: 2px; }
+
+  /* Newsletter */
+  .contact-newsletter {
+    background: linear-gradient(135deg, var(--blue) 0%, #1a3d7a 100%);
+    border-radius: 20px; padding: 32px 40px;
+    color: #fff;
+  }
+  .contact-newsletter h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 700;
+    color: #fff; margin-bottom: 8px;
+  }
+  .contact-newsletter p { font-size: 13px; color: rgba(255,255,255,0.70); line-height: 1.6; margin-bottom: 20px; }
+  .contact-nl-form { display: flex; gap: 10px; }
+  .contact-nl-input {
+    flex: 1; font-family: 'DM Sans', sans-serif; font-size: 14px;
+    background: rgba(255,255,255,0.12); color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.25); border-radius: 10px;
+    padding: 11px 16px; outline: none;
+    transition: border-color .2s; box-sizing: border-box;
+  }
+  .contact-nl-input::placeholder { color: rgba(255,255,255,0.45); }
+  .contact-nl-input:focus { border-color: rgba(255,255,255,0.60); }
+  .contact-nl-btn {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #fff; color: var(--blue); border: none; border-radius: 10px;
+    padding: 11px 20px; cursor: pointer; white-space: nowrap;
+    transition: opacity .2s, transform .15s;
+  }
+  .contact-nl-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .contact-nl-note { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 12px; }
+
+  @media (max-width: 900px) {
+    #contact { padding: 80px 24px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-row { grid-template-columns: 1fr; }
+    .contact-form-col, .contact-card { padding: 28px 24px; }
+    .contact-newsletter { padding: 28px 24px; }
+    .contact-nl-form { flex-direction: column; }
+  }
+
+  /* ══ FOOTER ═══════════════════════════════════════════ */
+  footer { background: var(--page-bg); border-top: 1px solid var(--border); padding: 52px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; flex-wrap: wrap; margin-bottom: 40px; }
+  .footer-brand { max-width: 280px; }
+  .footer-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .footer-logo img { height: 56px; border-radius: 10px; }
+  .footer-logo span { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 17px; }
+  .footer-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .footer-col h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a { font-size: 13px; color: var(--muted); transition: color .2s; }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-copy { font-size: 12px; color: var(--muted); }
+  .footer-socials { display: flex; gap: 10px; }
+  .footer-socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: all .2s; }
+  .footer-socials a:hover { border-color: var(--blue-mid); color: var(--blue); }
+
+  /* ══ REVEAL ═══════════════════════════════════════════ */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ══ RESPONSIVE ═══════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    nav { padding: 16px 24px; }
+    .nav-links, .nav-socials { display: none; }
+    #hero, #stats, #features, #results, #cta-dark, #testimonials, #contact, footer { padding-left: 24px; padding-right: 24px; }
+    .hero-h1 { font-size: clamp(48px, 11vw, 80px); }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .features-grid { flex-wrap: wrap; }
+    .feat-card { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .feat-card:last-child { border-bottom: none; }
+    .results-grid { grid-template-columns: 1fr; }
+    .cta-dark-inner { grid-template-columns: 1fr; gap: 48px; }
+    .stats-photos { grid-template-columns: 1fr; }
+    .footer-top { flex-direction: column; gap: 28px; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO (contient nav intégrée) ══════════════════════ -->
+<section id="hero">
+
+  <!-- Coin bas-gauche hero -->
+  <div class="st-corner st-corner-bl hero-corner" aria-hidden="true">
+    <div class="st-wave st-wave-1"></div>
+    <div class="st-wave st-wave-2"></div>
+    <div class="st-wave st-wave-3"></div>
+    <div class="st-wave st-wave-4"></div>
+  </div>
+
+  <!-- Coin bas-droit hero -->
+  <div class="st-corner st-corner-br hero-corner" aria-hidden="true">
+    <div class="st-wave st-wave-1"></div>
+    <div class="st-wave st-wave-2"></div>
+    <div class="st-wave st-wave-3"></div>
+    <div class="st-wave st-wave-4"></div>
+  </div>
+
+  <!-- NAV intégrée dans le hero -->
+  <nav id="nav" style="position:absolute;top:0;left:0;right:0;z-index:200;display:flex;align-items:flex-start;justify-content:space-between;padding:20px 44px;background:transparent;">
+
+    <!-- Gauche : carré logo + texte à côté -->
+    <div class="nav-logo-block">
+      <div class="nav-logo-square">
+        <img src="public/images/logo-digibus-hd.jpg" alt="Digibus"/>
+      </div>
+      <span class="nav-logo-name">Association<br/>Digibus</span>
+    </div>
+
+    <!-- Droite : bouton Accueil + dropdown -->
+    <div class="nav-logo-wrap">
+
+      <!-- Bouton Accueil — déclenche dropdown -->
+      <div class="nav-pill-logo" id="nav-pill" onclick="toggleMenu()" style="gap:10px;padding:10px 18px;">
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:15px;color:var(--text);">☰ Accueil</span>
+        <span class="nav-pill-arrow" id="nav-arrow" style="margin-left:4px;">▾</span>
+      </div>
+
+      <!-- Dropdown — s'ouvre à droite sous le bouton Accueil -->
+      <div class="nav-dropdown" id="nav-dropdown" style="left:auto;right:0;">
+        <!-- Logo header -->
+        <div class="dd-header">
+          <img src="public/images/logo-digibus-hd.jpg" alt="Digibus" style="height:40px;border-radius:8px;"/>
+          <span class="dd-header-name">Association Digibus</span>
+          <span class="dd-header-arrow">↗</span>
+        </div>
+
+        <!-- Liens 2 colonnes -->
+        <div class="dd-links">
+          <a href="#galerie" class="dd-link" onclick="closeMenu()">Nos ateliers</a>
+          <a href="#logos" class="dd-link" onclick="closeMenu()">Partenaires</a>
+          <a href="#relais" class="dd-link" onclick="closeMenu()">Relais numériques</a>
+          <a href="#contact" class="dd-link" onclick="closeMenu()">Nous contacter</a>
+          <a href="#testimonials" class="dd-link" onclick="closeMenu()">Témoignages</a>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div class="dd-socials">
+          <a href="https://www.instagram.com/associationdigibus/" target="_blank" class="dd-social">Instagram</a>
+          <a href="https://www.linkedin.com/company/digibus62" target="_blank" class="dd-social">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+
+  <div class="hero-nav-spacer"></div>
+
+  <!-- Contenu centré -->
+  <div class="hero-inner">
+
+    <div class="hero-badge">
+      Ateliers disponibles <span class="hero-badge-accent">&nbsp;maintenant&nbsp;</span> dans le Pas-de-Calais
+    </div>
+
+    <h1 class="hero-h1">
+      Le numérique<br/>au service<br/>de l'humain
+    </h1>
+
+    <p class="hero-sub">
+      Gérer le numérique seul peut être difficile… laissez-nous vous simplifier la vie.
+      Rejoignez nos ateliers gratuits et bénéficiez d'un accompagnement personnalisé, près de chez vous.
+    </p>
+
+    <a href="#contact" class="btn-hero-primary">
+      <span class="btn-sparkle">✦</span>
+      Rejoindre le programme gratuit
+    </a>
+
+    <div class="hero-quote-wrap">
+      <p class="hero-quote">
+        "En une seule séance, j'ai réussi à créer mon espace France Connect et à faire ma déclaration en ligne toute seule. L'équipe est patiente, bienveillante."
+      </p>
+      <cite class="hero-cite">Josiane, novembre 2024</cite>
+      <div class="hero-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="trust">
+  <div class="trust-row reveal">
+    <span class="trust-count">Accompagné par <span>+500</span> personnes dans le Pas-de-Calais</span>
+    <div class="trust-sep"></div>
+    <span class="trust-count"><span>100%</span> gratuit pour les participants</span>
+    <div class="trust-sep"></div>
+    <span class="trust-count">Itinérant dans <span>20+</span> communes</span>
+    <div class="trust-sep"></div>
+    <span class="trust-count">Premier <span>Relais Numérique</span> du Pas-de-Calais</span>
+  </div>
+</section>
+
+
+<section id="stats-cards">
+  <div class="stats-cards-inner">
+    <div class="stat-card">
+      <div class="stat-num"><span>100</span>%</div>
+      <p class="stat-label">Ateliers gratuits pour les participants, financés par les collectivités</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num"><span>24</span>/7</div>
+      <p class="stat-label">Accessible et joignable par tous les moyens — téléphone, Facebook, email</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num"><span>500</span>+</div>
+      <p class="stat-label">Personnes accompagnées depuis la création en mars 2023</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num"><span>20</span>+</div>
+      <p class="stat-label">Communes visitées dans tout le Pas-de-Calais</p>
+    </div>
+  </div>
+</section>
+
+
+<section id="scrolltext">
+
+  <!-- Coin bas-gauche -->
+  <div class="st-corner st-corner-bl" aria-hidden="true">
+    <div class="st-wave st-wave-1"></div>
+    <div class="st-wave st-wave-2"></div>
+    <div class="st-wave st-wave-3"></div>
+    <div class="st-wave st-wave-4"></div>
+  </div>
+
+  <!-- Coin bas-droit -->
+  <div class="st-corner st-corner-br" aria-hidden="true">
+    <div class="st-wave st-wave-1"></div>
+    <div class="st-wave st-wave-2"></div>
+    <div class="st-wave st-wave-3"></div>
+    <div class="st-wave st-wave-4"></div>
+  </div>
+
+  <div class="st-inner">
+    <div class="st-text" id="st-text">
+      <span class="sw">Il</span> <span class="sw">est</span> <span class="sw hl">temps</span>
+      <span class="sw">d'agir</span> <span class="sw">contre</span>
+      <span class="sw hl">l'exclusion</span> <span class="sw hl">numérique.</span><br/>
+      <span class="sw">Digibus</span> <span class="sw">est</span> <span class="sw">à</span>
+      <span class="sw">la</span> <span class="sw">pointe</span> <span class="sw">grâce</span>
+      <span class="sw">à</span> <span class="sw">la</span>
+      <span class="sw hl">formation,</span> <span class="sw hl">l'éducation</span>
+      <span class="sw">et</span> <span class="sw hl">l'accompagnement.</span><br/>
+      <span class="sw">Rejoignez-nous</span> <span class="sw">pour</span>
+      <span class="sw hl">aider</span> <span class="sw">tous</span>
+      <span class="sw">ceux</span> <span class="sw">qui</span>
+      <span class="sw hl">en</span> <span class="sw hl">ont</span>
+      <span class="sw hl">besoin</span> <span class="sw">dans</span>
+      <span class="sw">le</span> <span class="sw hl">Pas-de-Calais.</span><br/>
+      <span class="sw">Il</span> <span class="sw">y</span>
+      <span class="sw">a</span> <span class="sw hl">de</span>
+      <span class="sw hl">l'espoir.</span> <span class="sw">Continuons</span>
+      <span class="sw">ensemble</span> <span class="sw">le</span>
+      <span class="sw hl">combat</span> <span class="sw">pour</span>
+      <span class="sw hl">l'inclusion</span> <span class="sw hl">numérique.</span>
+    </div>
+  </div>
+</section>
+
+
+<section id="results">
+  <div class="results-lifer reveal">
+
+    <!-- Colonne gauche : titre + texte -->
+    <div class="rl-left">
+      <h2 class="rl-left-title">Résultats concrets<br/>et situations<br/>vécues</h2>
+      <p class="rl-left-sub">Accompagnement pratique et humain pour aider chacun à franchir le cap du numérique, à son rythme.</p>
+    </div>
+
+    <!-- Colonne droite : 2 cartes + vidéo -->
+    <div class="rl-right">
+
+      <!-- Rangée 2 cartes -->
+      <div class="rl-cards-row">
+
+        <!-- Carte 1 — formats d'ateliers -->
+        <div class="rl-card">
+          <p class="rl-card-title">Individuel<br/>ou en groupe</p>
+          <div class="rl-formats">
+            <div class="rl-format-tag">
+              <span class="rl-format-dot" style="background:#1f4683"></span>
+              👤 Suivi individuel
+            </div>
+            <div class="rl-format-tag">
+              <span class="rl-format-dot" style="background:#2092c5"></span>
+              👥 Groupes 5–10 pers.
+            </div>
+            <div class="rl-format-tag">
+              <span class="rl-format-dot" style="background:#93c5fd"></span>
+              🏠 Numérique à domicile
+            </div>
+          </div>
+          <p class="rl-card-sub">Tous types de publics — seniors, demandeurs d'emploi, familles, scolaires</p>
+        </div>
+
+        <!-- Carte 2 — progression vers l'autonomie -->
+        <div class="rl-card">
+          <p class="rl-card-title">Vers l'autonomie<br/>numérique</p>
+          <div class="rl-bars-wrap">
+            <div class="rl-bar-col">
+              <span class="rl-bar-val">15%</span>
+              <div class="rl-bar-block" style="height:15%;background:#e2e8f0"></div>
+              <span class="rl-bar-lbl">Avant</span>
+            </div>
+            <div class="rl-bar-col">
+              <span class="rl-bar-val">50%</span>
+              <div class="rl-bar-block" style="height:50%;background:#93c5fd"></div>
+              <span class="rl-bar-lbl">Atelier 1</span>
+            </div>
+            <div class="rl-bar-col">
+              <span class="rl-bar-val">75%</span>
+              <div class="rl-bar-block" style="height:75%;background:#2092c5"></div>
+              <span class="rl-bar-lbl">Atelier 2</span>
+            </div>
+            <div class="rl-bar-col">
+              <span class="rl-bar-val">95%</span>
+              <div class="rl-bar-block" style="height:95%;background:#1f4683"></div>
+              <span class="rl-bar-lbl">Atelier 3</span>
+            </div>
+          </div>
+          <p class="rl-card-sub">72% des participants autonomes après 3 ateliers — en moyenne 1 séance par semaine</p>
+        </div>
+
+      </div>
+
+      <!-- Vidéo Digibus — autoplay muted + bouton son haut gauche -->
+      <div class="rl-video-wrap">
+        <video id="digibus-video" autoplay muted loop playsinline>
+          <source src="public/videos/digibus-2025-web.mp4" type="video/mp4"/>
+        </video>
+        <button class="rl-sound-btn" id="sound-btn" onclick="toggleSound()" aria-label="Activer/désactiver le son">
+          <svg id="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+          <svg id="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+          </svg>
+          <span class="sound-tooltip">Activer le son</span>
+        </button>
+        <span class="rl-video-badge">Digibus · Pas-de-Calais 2025</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="features">
+  <div class="features-inner">
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>
+          </svg>
+        </div>
+        <h3 class="feat-title">Initiation smartphone</h3>
+        <p class="feat-desc">Appels, SMS, photos, applis — maîtrisez votre téléphone en toute confiance et autonomie.</p>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+        <h3 class="feat-title">Démarches en ligne</h3>
+        <p class="feat-desc">France Connect, CAF, Ameli, impôts — nous vous guidons pas à pas pour chaque démarche administrative.</p>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <h3 class="feat-title">Ateliers collectifs</h3>
+        <p class="feat-desc">En groupe de 5 à 10 personnes, apprenez ensemble dans une ambiance bienveillante et conviviale.</p>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <h3 class="feat-title">Matériel reconditionné</h3>
+        <p class="feat-desc">Achetez un ordinateur, portable ou tablette reconditionnée à prix solidaire — ordi dès 50€, tablette dès 60€.</p>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <h3 class="feat-title">Accompagnement continu</h3>
+        <p class="feat-desc">Notre équipe reste disponible après chaque atelier par téléphone, Facebook ou email.</p>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>
+          </svg>
+        </div>
+        <h3 class="feat-title">Itinérant chez vous</h3>
+        <p class="feat-desc">Digibus se déplace dans toutes les communes du Pas-de-Calais — en mairie, salle des fêtes, ou à domicile.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="mission">
+  <div class="mission-card">
+
+    <!-- Gauche : texte -->
+    <div class="mission-left">
+      <div class="mission-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Notre mission
+      </div>
+      <h2 class="mission-h2">Il est temps de rendre<br/>le numérique<br/><em style="font-style:normal; color:var(--blue-mid);">accessible à tous</em></h2>
+      <p class="mission-sub">Judith et Stéphanie sillonnent le Pas-de-Calais pour aller à la rencontre de ceux qui en ont le plus besoin — forums, mairies, associations. L'informatique au service de l'humain.</p>
+      <div class="mission-ctas">
+        <a href="#contact" class="mission-cta-primary">Rejoindre un atelier</a>
+        <a href="#contact" class="mission-cta-secondary">Nous contacter</a>
+      </div>
+    </div>
+
+    <!-- Droite : photo -->
+    <div class="mission-right">
+      <img src="public/images/real/salon-bien-vieillir.jpg" alt="Judith et Stéphanie au Forum Bien Vieillir" loading="lazy"/>
+      <div class="mission-float">
+        <div class="mission-float-icon">🏆</div>
+        <div>
+          <div class="mission-float-label">Présentes sur le terrain</div>
+          <div class="mission-float-val">Forum Bien Vieillir · Pas-de-Calais</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="quad-scatter">
+  <div class="qs-pin">
+
+    <!-- Photo haut — centrée, part vers le haut -->
+    <div class="qs-photo qs-top">
+      <img src="public/images/real/atelier-bruay-hero.jpg" alt="Atelier Digibus" loading="lazy"/>
+    </div>
+
+    <!-- Photo gauche — part à gauche -->
+    <div class="qs-photo qs-left">
+      <img src="public/images/real/atelier-cheminots-avion.jpg" alt="Atelier numérique Cheminots Avion" loading="lazy"/>
+      <div class="qs-badge-side">
+        <div class="qs-side-label">☀️ Atelier numérique · En cours</div>
+        <div class="qs-side-loc">Cheminots,<br/>Avion (62)</div>
+      </div>
+    </div>
+
+    <!-- Dots en grille pattern + halo derrière l'icône — style Lifer -->
+    <div class="qs-dots-bg"></div>
+    <div class="qs-icon-halo"></div>
+
+    <!-- Texte central — apparaît quand les photos s'écartent -->
+    <div class="qs-text">
+      <div class="ql-icon-wrap" style="padding:6px;">
+        <img src="public/images/logo-digibus-hd.jpg" alt="Digibus" style="width:100%;height:100%;object-fit:contain;border-radius:12px;"/>
+      </div>
+      <h2 class="ql-h2">
+        Le numérique n'a<br/>jamais été aussi<br/><span class="ul">accessible</span>
+      </h2>
+      <p class="ql-sub">Des ateliers gratuits, adaptés à votre niveau, dans votre commune. Commencez dès aujourd'hui.</p>
+      <a href="#contact" class="ql-cta">Démarrer avec un atelier gratuit</a>
+    </div>
+
+    <!-- Photo droite — part à droite -->
+    <div class="qs-photo qs-right">
+      <img src="public/images/real/atelier-bruay-vendredi.jpg" alt="Atelier numérique Bruay-la-Buissière" loading="lazy"/>
+      <div class="qs-badge-side">
+        <div class="qs-side-label">☀️ Atelier numérique · En cours</div>
+        <div class="qs-side-loc">Bruay-la-Buissière<br/>(62)</div>
+      </div>
+    </div>
+
+    <!-- Photo bas — part vers le bas avec overlay texte -->
+    <div class="qs-photo qs-bottom">
+      <img src="public/images/real/rsa-divion.jpg" alt="Atelier RSA Divion" loading="lazy"/>
+      <div class="qs-badge-bottom">
+        <p>Atelier RSA<br/>Divion (62)</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="galerie">
+
+  <div class="gal-header reveal">
+    <div class="gal-title-wrap">
+      <p class="gal-label">📸 Nos ateliers en images</p>
+      <h2 class="gal-h2">Partout dans<br/>le Pas-de-Calais</h2>
+      <p class="gal-sub">19 communes · Des centaines de participants · 100 % gratuit</p>
+    </div>
+    <a href="#contact" class="gal-scroll-hint">
+      Découvrir nos ateliers
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </div>
+
+  <div class="gal-track-wrap">
+    <div class="gal-track" id="gal-track">
+
+      <!-- Photo large solo -->
+      <div class="gal-photo gal-wide">
+        <img src="public/images/galerie/bruay.jpg" alt="Atelier Bruay" loading="lazy"/>
+        <div class="gal-caption">Atelier · Bruay-la-Buissière</div>
+      </div>
+
+      <!-- Duo empilé -->
+      <div class="gal-stack">
+        <div class="gal-photo">
+          <img src="public/images/galerie/cheminots.jpg" alt="Atelier Cheminots" loading="lazy"/>
+          <div class="gal-caption">Atelier Cheminots</div>
+        </div>
+        <div class="gal-photo">
+          <img src="public/images/galerie/haillicourt.jpg" alt="Atelier Haillicourt" loading="lazy"/>
+          <div class="gal-caption">Haillicourt</div>
+        </div>
+      </div>
+
+      <!-- Photo large solo -->
+      <div class="gal-photo gal-wide">
+        <img src="public/images/galerie/emmaus-connect.jpg" alt="Emmaüs Connect" loading="lazy"/>
+        <div class="gal-caption">Partenariat Emmaüs Connect</div>
+      </div>
+
+      <!-- Duo empilé -->
+      <div class="gal-stack">
+        <div class="gal-photo">
+          <img src="public/images/galerie/uni-cite-lens.jpg" alt="Uni Cité Lens" loading="lazy"/>
+          <div class="gal-caption">Uni Cité · Lens</div>
+        </div>
+        <div class="gal-photo">
+          <img src="public/images/galerie/bruay-vendredi.jpg" alt="Atelier Bruay vendredi" loading="lazy"/>
+          <div class="gal-caption">Bruay · Vendredi</div>
+        </div>
+      </div>
+
+      <!-- Photo médium -->
+      <div class="gal-photo gal-med">
+        <img src="public/images/galerie/atelier-divion.jpg" alt="Atelier Divion" loading="lazy"/>
+        <div class="gal-caption">Atelier · Divion</div>
+      </div>
+
+      <!-- Photo large solo -->
+      <div class="gal-photo gal-wide">
+        <img src="public/images/galerie/citeo-lille.jpg" alt="Citéo Lille" loading="lazy"/>
+        <div class="gal-caption">Citéo · Lille</div>
+      </div>
+
+      <!-- Duo empilé -->
+      <div class="gal-stack">
+        <div class="gal-photo">
+          <img src="public/images/galerie/atelier-num-casanova.jpg" alt="Atelier Casanova" loading="lazy"/>
+          <div class="gal-caption">Atelier numérique · Casanova</div>
+        </div>
+        <div class="gal-photo">
+          <img src="public/images/galerie/regie-de-quartier.jpg" alt="Régie de quartier" loading="lazy"/>
+          <div class="gal-caption">Régie de quartier</div>
+        </div>
+      </div>
+
+      <!-- Photo médium -->
+      <div class="gal-photo gal-med">
+        <img src="public/images/galerie/service-civique-2025-béthune.jpg" alt="Service Civique Béthune 2025" loading="lazy"/>
+        <div class="gal-caption">Service Civique 2025 · Béthune</div>
+      </div>
+
+      <!-- Photo large solo -->
+      <div class="gal-photo gal-wide">
+        <img src="public/images/galerie/partenariat-emmaus-connect-co-animation-haillicourt.jpg" alt="Co-animation Emmaüs Connect Haillicourt" loading="lazy"/>
+        <div class="gal-caption">Co-animation · Haillicourt</div>
+      </div>
+
+      <!-- Duo empilé -->
+      <div class="gal-stack">
+        <div class="gal-photo">
+          <img src="public/images/galerie/unicité-béthune-atelier.jpg" alt="Uni Cité Béthune" loading="lazy"/>
+          <div class="gal-caption">Uni Cité · Béthune</div>
+        </div>
+        <div class="gal-photo">
+          <img src="public/images/galerie/casanova-avion.jpg" alt="Casanova Avion" loading="lazy"/>
+          <div class="gal-caption">Casanova · Avion</div>
+        </div>
+      </div>
+
+      <!-- Photo médium -->
+      <div class="gal-photo gal-med">
+        <img src="public/images/galerie/relais-numérique.jpg" alt="Relais Numérique" loading="lazy"/>
+        <div class="gal-caption">Relais Numérique</div>
+      </div>
+
+      <!-- Photo large solo -->
+      <div class="gal-photo gal-wide">
+        <img src="public/images/galerie/ici-nord.jpg" alt="Ici Nord" loading="lazy"/>
+        <div class="gal-caption">Ici Nord</div>
+      </div>
+
+      <!-- Duo empilé -->
+      <div class="gal-stack">
+        <div class="gal-photo">
+          <img src="public/images/galerie/avion-casanova-avec-unicité.jpg" alt="Avion Casanova Unis Cité" loading="lazy"/>
+          <div class="gal-caption">Avion · Casanova · Unis Cité</div>
+        </div>
+        <div class="gal-photo">
+          <img src="public/images/galerie/pib2.jpg" alt="PIB Béthune" loading="lazy"/>
+          <div class="gal-caption">PIB · Béthune</div>
+        </div>
+      </div>
+
+      <!-- Photo médium finale -->
+      <div class="gal-photo gal-med">
+        <img src="public/images/galerie/unicité-béthune-atelier-2.jpg" alt="Uni Cité Béthune atelier 2" loading="lazy"/>
+        <div class="gal-caption">Uni Cité · Béthune</div>
+      </div>
+
+    </div><!-- /gal-track -->
+  </div><!-- /gal-track-wrap -->
+
+  <!-- Flèches -->
+  <div class="gal-arrows reveal">
+    <button class="gal-nav-btn" id="gal-prev" aria-label="Précédent">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="gal-nav-btn" id="gal-next" aria-label="Suivant">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+</section>
+
+
+<section id="testimonials">
+  <div class="testi-inner">
+
+    <!-- En-tête -->
+    <div class="testi-header reveal">
+      <p class="testi-label">Témoignages</p>
+      <h2 class="testi-h2">Ce qu'ils disent de Digibus</h2>
+    </div>
+
+    <!-- Track scrollable -->
+    <div class="testi-track-wrap">
+      <div class="testi-track" id="testi-track">
+
+        <!-- 1 — Dalila Dewevre, Facebook -->
+        <article class="testi-card social-card">
+          <div class="social-platform fb" aria-label="Facebook">f</div>
+          <div class="social-header">
+            <div class="social-avatar">DD</div>
+            <div class="social-identity">
+              <div class="social-name">Dalila Dewevre</div>
+              <div class="social-meta"><span class="tag-action">recommande <b>Association DigiBus</b>.</span></div>
+              <div class="social-date">16 mai 2025 · 🌐</div>
+            </div>
+          </div>
+          <p class="social-text">🥰🥰🥰 Judith et Stéphanie sont super et très à l'écoute des seniors. Apprendre le numérique avec elles nous est très bénéfique. Grâce à ces deux personnes nous apprenons à nous servir d'un ordinateur. Un grand merci pour votre patience.</p>
+          <div class="social-reactions">
+            <div class="reaction-left"><span class="reaction-pill like">👍</span> <span>1</span></div>
+            <div class="reaction-right"><span>💬</span><span>↪ 4</span></div>
+          </div>
+        </article>
+
+        <!-- 2 — Dahlia, Livre d'or Bruay -->
+        <article class="testi-card goldbook-card">
+          <div class="goldbook-photo">
+            <img src="public/images/real/temoignages-bruay-1.jpg" alt="Dahlia — atelier DigiBus à Bruay" loading="lazy"/>
+            <div class="goldbook-quote-icon">"</div>
+          </div>
+          <div class="goldbook-body">
+            <div class="goldbook-stars">★ ★ ★ ★ ★</div>
+            <p class="goldbook-text">J'ai beaucoup appris avec Juju et Stéphanie. Elles sont super, à l'écoute et très patientes. Merci à elles deux.</p>
+            <div class="goldbook-author">
+              <div class="goldbook-author-badge">D</div>
+              <div>
+                <span class="goldbook-author-name">Dahlia</span>
+                <span class="goldbook-author-loc">✏️ Livre d'or · Bruay-la-Buissière</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 — Simon Maréchal, LinkedIn -->
+        <article class="testi-card social-card">
+          <div class="social-platform li" aria-label="LinkedIn">in</div>
+          <div class="social-header">
+            <div class="social-avatar">SM</div>
+            <div class="social-identity">
+              <div class="social-name">Simon Maréchal <span class="verified">✓</span></div>
+              <div class="social-meta">3<sup>e</sup> et +</div>
+              <div class="social-sub">En recherche active d'une nouvelle mission</div>
+              <div class="social-date">il y a 4 mois</div>
+            </div>
+          </div>
+          <p class="social-text">Un très chouette moment partagé avec Judith Dumay sur le terrain et Clarence Fabri en studio. Merci à ici nord pour la mise en valeur de ce sujet important.</p>
+          <div class="linkedin-actions">
+            <span class="li-reaction"><span class="li-heart">♥</span> 3</span>
+            <span class="li-sep"></span>
+            <span>Répondre</span>
+          </div>
+        </article>
+
+        <!-- 4 — Martine, Livre d'or Bruay -->
+        <article class="testi-card goldbook-card">
+          <div class="goldbook-photo">
+            <img src="public/images/real/temoignages-bruay-2.jpg" alt="Martine — atelier DigiBus à Bruay" loading="lazy"/>
+            <div class="goldbook-quote-icon">"</div>
+          </div>
+          <div class="goldbook-body">
+            <div class="goldbook-stars">★ ★ ★ ★ ★</div>
+            <p class="goldbook-text">Cours très instructifs. Prof compétente et très sympa. Merci pour votre passion et votre engagement sur le terrain.</p>
+            <div class="goldbook-author">
+              <div class="goldbook-author-badge">M</div>
+              <div>
+                <span class="goldbook-author-name">Martine</span>
+                <span class="goldbook-author-loc">✏️ Livre d'or · Bruay-la-Buissière</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5 — Camille Bardou, LinkedIn · Emmaüs Connect -->
+        <article class="testi-card social-card">
+          <div class="social-platform li" aria-label="LinkedIn">in</div>
+          <div class="social-header">
+            <div class="social-avatar">CB</div>
+            <div class="social-identity">
+              <div class="social-name">Camille Bardou <span class="verified">✓</span></div>
+              <div class="social-meta">3<sup>e</sup> et +</div>
+              <div class="social-sub">Responsable du pôle LaCollecte.tech chez Emmaüs Connect</div>
+              <div class="social-date">il y a 6 mois</div>
+            </div>
+          </div>
+          <p class="social-text">Merci pour ces beaux échanges, bravo pour tout ce que vous faites et merci Sophie Ragot pour ce travail de réseau de grande qualité et la mise en lumière des acteurs de terrain !</p>
+          <div class="linkedin-actions">
+            <span class="li-reaction"><span class="li-heart">♥</span> 3</span>
+            <span class="li-sep"></span>
+            <span>Répondre</span>
+            <span class="li-sep"></span>
+            <span>1 réponse</span>
+          </div>
+        </article>
+
+        <!-- 6 — Bernadette, Livre d'or Bruay mercredi -->
+        <article class="testi-card goldbook-card">
+          <div class="goldbook-photo">
+            <img src="public/images/real/temoignages-bruay-mercredi.jpg" alt="Livre d'or atelier numérique Bruay — mercredi" loading="lazy"/>
+            <div class="goldbook-quote-icon">"</div>
+          </div>
+          <div class="goldbook-body">
+            <div class="goldbook-stars">★ ★ ★ ★ ★</div>
+            <p class="goldbook-text">Merci beaucoup pour l'accueil et l'excellente formation. J'ai appris beaucoup de choses et j'espère qu'une suite sera donnée !</p>
+            <div class="goldbook-author">
+              <div class="goldbook-author-badge">B</div>
+              <div>
+                <span class="goldbook-author-name">Bernadette D.</span>
+                <span class="goldbook-author-loc">✏️ Livre d'or · Bruay-la-Buissière</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7 — Sophie Ragot, LinkedIn · Emmaüs Connect -->
+        <article class="testi-card social-card">
+          <div class="social-platform li" aria-label="LinkedIn">in</div>
+          <div class="social-header">
+            <div class="social-avatar">SR</div>
+            <div class="social-identity">
+              <div class="social-name">Sophie Ragot <span class="verified">✓</span></div>
+              <div class="social-meta">3<sup>e</sup> et +</div>
+              <div class="social-sub">Responsable Territoriale Emmaüs Connect</div>
+              <div class="social-date">il y a 4 mois</div>
+            </div>
+          </div>
+          <p class="social-text">Merci pour votre action sur le terrain. C'est un bel exemple de collaboration entre différents acteurs de l'inclusion numérique. Bravo pour votre engagement !</p>
+          <div class="linkedin-actions">
+            <span class="li-reaction"><span class="li-heart">♥</span> 1</span>
+            <span class="li-sep"></span>
+            <span>Répondre</span>
+            <span class="li-sep"></span>
+            <span>1 réponse</span>
+          </div>
+        </article>
+
+            </div><!-- /testi-track -->
+    </div><!-- /testi-track-wrap -->
+
+    <!-- Flèches navigation -->
+    <div class="testi-arrows reveal">
+      <button class="testi-nav-btn" id="testi-prev" aria-label="Précédent">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="testi-nav-btn" id="testi-next" aria-label="Suivant">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="relais">
+  <div class="relais-card reveal">
+
+    <!-- Gauche : texte sur fond bleu -->
+    <div class="relais-left">
+      <!-- Logo Relais Numériques -->
+      <div class="relais-logo-img-wrap">
+        <img src="public/images/logo-relais-crop.jpg" alt="Les Relais Numériques avec Emmaüs Connect" class="relais-logo-img"/>
+      </div>
+      <div class="relais-badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Premier labellisé du département
+      </div>
+      <h2 class="relais-h2">Premier Relais<br/>Numérique<br/>du <em>Pas-de-Calais.</em></h2>
+      <p class="relais-desc">Digibus est le <strong>premier Relais Numérique du département</strong>, labellisé dans le cadre du programme national porté par Emmaüs Connect.<br/><br/>Ce label permet à l'association de proposer du matériel informatique reconditionné à tarif solidaire — pour que chacun puisse s'équiper sans se ruiner.</p>
+      <a href="#contact" class="relais-cta" aria-label="Contacter Digibus">
+        <img src="public/images/logo-digibus-hd.jpg" alt="Digibus"/>
+      </a>
+    </div>
+
+    <!-- Droite : tarifs solidaires -->
+    <div class="relais-right">
+      <img src="public/images/logo-emmaus.svg" alt="Emmaüs Connect" class="relais-emmaus-logo"/>
+      <div class="relais-tarifs-header">
+        <div class="relais-tarifs-label">Tarifs solidaires</div>
+        <div class="relais-tarifs-title">Ordinateurs reconditionnés</div>
+      </div>
+
+      <div class="relais-rows">
+
+        <!-- Catégorie A -->
+        <div class="relais-row">
+          <div class="relais-row-icon">
+            <img src="public/images/laptop-icon.png" alt="Ordinateur portable reconditionné" loading="lazy"/>
+          </div>
+          <div class="relais-row-body">
+            <div class="relais-row-name">Catégorie A — Étudiant</div>
+            <div class="relais-row-desc">i5+, 8 Go RAM, 256 Go SSD · Windows 11</div>
+          </div>
+          <div class="relais-row-price">
+            <div class="relais-row-from">À partir de</div>
+            <div class="relais-row-amount">150€</div>
+          </div>
+        </div>
+
+        <!-- Catégorie B -->
+        <div class="relais-row">
+          <div class="relais-row-icon">
+            <img src="public/images/laptop-icon.png" alt="Ordinateur portable reconditionné" loading="lazy"/>
+          </div>
+          <div class="relais-row-body">
+            <div class="relais-row-name">Catégorie B — Usage courant</div>
+            <div class="relais-row-desc">i3/i5, 4 Go RAM, 256 Go · Linux</div>
+          </div>
+          <div class="relais-row-price">
+            <div class="relais-row-from">À partir de</div>
+            <div class="relais-row-amount">110€</div>
+          </div>
+        </div>
+
+        <!-- Catégorie C -->
+        <div class="relais-row">
+          <div class="relais-row-icon">
+            <img src="public/images/laptop-icon.png" alt="Ordinateur portable reconditionné" loading="lazy"/>
+          </div>
+          <div class="relais-row-body">
+            <div class="relais-row-name">Catégorie C — Sénior</div>
+            <div class="relais-row-desc">4 Go RAM, 128 Go · Linux / Windows 10</div>
+          </div>
+          <div class="relais-row-price">
+            <div class="relais-row-from">À partir de</div>
+            <div class="relais-row-amount">70€</div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="relais-note">Disponibilités variables — contactez-nous pour connaître le stock actuel.</p>
+      <a href="#contact" class="relais-stock-btn">Demander le stock disponible →</a>
+      <p class="relais-legal">*Tarifs indicatifs, sous réserve de disponibilité. Achat sur place uniquement.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="presse">
+  <div class="presse-inner">
+
+    <div class="presse-header reveal">
+      <p class="presse-label">📰 Presse &amp; Médias</p>
+      <h2 class="presse-h2">Reconnus par les médias régionaux</h2>
+    </div>
+
+    <div class="presse-grid reveal">
+
+      <!-- ── Gauche : encadré journal ── -->
+      <div class="presse-journal-col">
+        <div class="presse-journal-frame">
+          <img
+            src="public/images/real/article-vdn.jpg"
+            alt="Article La Voix du Nord — Lutter contre la fracture numérique avec Digi Bus"
+            class="presse-article-img"
+            loading="lazy"
+          />
+          <div class="presse-media-badge">
+            <span class="presse-media-name">La Voix du Nord</span>
+            <span class="presse-media-date">Jeudi 17 octobre 2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Droite : citation + faits + radio ── -->
+      <div class="presse-content-col">
+
+        <p class="presse-col-tag">Reconnaissance presse régionale</p>
+
+        <blockquote class="presse-quote">
+          <span class="presse-quote-mark">"</span>
+          <p>Notre projet, c'est l'itinérance. On aimerait un camping-car connecté pour aller proposer nos services dans le milieu rural.</p>
+          <footer class="presse-quote-footer">
+            <strong>Judith Dumay</strong> — Présidente de Digibus
+          </footer>
+          <p class="presse-quote-context">
+            Déclarée dans les colonnes de
+            <span>La Voix du Nord · Oct. 2024</span>
+          </p>
+        </blockquote>
+
+        <div class="presse-facts-inline">
+          <span class="presse-fact-pill"><span>📅</span> Octobre 2024</span>
+          <span class="presse-fact-pill"><span>👥</span> 13 participants dès Bruay</span>
+          <span class="presse-fact-pill"><span>⏳</span> Liste d'attente ouverte</span>
+        </div>
+
+        <!-- Bloc Radio Banquise intégré -->
+        <div class="presse-radio-block">
+          <div class="presse-radio-header">
+            <div class="presse-radio-icon">📻</div>
+            <div>
+              <p class="presse-radio-title">Radio Banquise</p>
+              <p class="presse-radio-sub">Pas-de-Calais · Invitées en direct</p>
+            </div>
+          </div>
+          <div class="presse-radio-photos">
+            <div class="presse-radio-photo-wrap">
+              <img src="public/images/real/radio-banquise-ju.jpg" alt="Judith Dumay sur Radio Banquise" loading="lazy"/>
+              <span class="presse-radio-photo-name">Judith Dumay</span>
+            </div>
+            <div class="presse-radio-photo-wrap">
+              <img src="public/images/real/radio-banquise-steph.jpg" alt="Stéphanie Matuszak sur Radio Banquise" loading="lazy"/>
+              <span class="presse-radio-photo-name">Stéphanie Matuszak</span>
+            </div>
+          </div>
+          <p class="presse-radio-text">
+            Invitées en direct sur <strong>Radio Banquise</strong>, Judith et Stéphanie ont porté la voix de l'inclusion numérique sur les ondes du Pas-de-Calais.
+          </p>
+          <span class="presse-radio-badge">EN ANTENNE · Radio Banquise</span>
+        </div>
+
+        <!-- Founders mini card -->
+        <div class="presse-founders-mini">
+          <div class="presse-founders-mini-avatars">
+            <div class="presse-founders-mini-avatar" style="background:linear-gradient(135deg,#2092c5,#1f4683)">J</div>
+            <div class="presse-founders-mini-avatar" style="background:linear-gradient(135deg,#1a6b4a,#2aa876)">S</div>
+          </div>
+          <div>
+            <p class="presse-founders-mini-name">Judith Dumay &amp; Stéphanie Matuszak</p>
+            <p class="presse-founders-mini-role">Médiatrices numériques &amp; co-fondatrices de Digibus</p>
+          </div>
+        </div>
+
+      </div><!-- /presse-content-col -->
+
+    </div><!-- /presse-grid -->
+  </div>
+</section>
+
+
+<section id="logos">
+  <p class="logos-label">Nos partenaires</p>
+  <div class="logos-grid">
+    <img src="public/images/logo-emmaus-connect-hd.png"  alt="Emmaüs Connect"         loading="lazy"/>
+    <img src="public/images/logo-relais.jpg"             alt="Les Relais Numériques"   loading="lazy" style="height:72px;"/>
+    <img src="public/images/logo-carsat-hd.png"          alt="CARSAT Hauts-de-France"  loading="lazy"/>
+    <img src="public/images/logo-pasdecalais-hd.png"     alt="Pas-de-Calais"           loading="lazy"/>
+    <img src="public/images/logo-unis-cite-hd.png"       alt="Unis-Cité"               loading="lazy"/>
+    <img src="public/images/logo-simplon-vector.svg"     alt="Simplon"                 loading="lazy"/>
+    <img src="public/images/logo-france-travail-hd.png"  alt="France Travail"          loading="lazy"/>
+    <img src="public/images/logo-francenum.png"          alt="France Num"              loading="lazy"/>
+  </div>
+  <p class="logos-exhaustive">* Liste non exhaustive</p>
+</section>
+
+
+<section id="cta-dark">
+  <div class="cta-dark-blob1"></div>
+  <div class="cta-dark-blob2"></div>
+  <div class="cta-dark-inner">
+    <div>
+      <h2 class="cta-dark-h2">Il est temps d'agir<br/>contre l'exclusion<br/>numérique</h2>
+      <div class="cta-dark-actions">
+        <a href="#contact" class="btn-dark-primary">Rejoindre un atelier gratuit</a>
+        <a href="https://www.facebook.com/associationdigibus" target="_blank" class="btn-dark-secondary">Partager votre histoire →</a>
+      </div>
+    </div>
+    <div class="cta-dark-card">
+      <div class="cta-card-row">
+        <span class="cta-card-label">Niveau numérique</span>
+        <span class="cta-card-time">Il y a 1 min</span>
+      </div>
+      <div class="cta-card-num">4.8</div>
+      <div class="cta-card-unit">/5 — satisfaction moyenne</div>
+      <div class="cta-card-stats">
+        <div class="cta-card-stat">
+          <div class="cta-card-stat-val">72%</div>
+          <div class="cta-card-stat-lbl">Autonomes après atelier</div>
+        </div>
+        <div class="cta-card-stat">
+          <div class="cta-card-stat-val">+500</div>
+          <div class="cta-card-stat-lbl">Personnes accompagnées</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="contact">
+  <div class="contact-blob"></div>
+  <div class="contact-wrap">
+
+    <!-- En-tête -->
+    <div class="contact-header reveal">
+      <h2 class="contact-h2">Obtenez une réponse<br/>à toute question<br/>sur nos ateliers</h2>
+      <p class="contact-sub">Formulaire, téléphone, Facebook ou email — notre équipe répond sous 24h et vous accompagne à chaque étape, gratuitement.</p>
+    </div>
+
+    <!-- Grille 2 colonnes -->
+    <div class="contact-grid reveal">
+
+      <!-- Gauche : Formulaire de contact -->
+      <div class="contact-form-col">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-3px;margin-right:8px;color:var(--blue-mid)"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Nous envoyer un message
+        </h3>
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="contact-row">
+            <div class="contact-field">
+              <label class="contact-label" for="cf-prenom">Prénom</label>
+              <input class="contact-input" type="text" id="cf-prenom" name="prenom" placeholder="Marie" required/>
+            </div>
+            <div class="contact-field">
+              <label class="contact-label" for="cf-nom">Nom</label>
+              <input class="contact-input" type="text" id="cf-nom" name="nom" placeholder="Dupont"/>
+            </div>
+          </div>
+          <div class="contact-field">
+            <label class="contact-label" for="cf-email">Email</label>
+            <input class="contact-input" type="email" id="cf-email" name="email" placeholder="votre@email.fr" required/>
+          </div>
+          <div class="contact-field">
+            <label class="contact-label" for="cf-message">Message</label>
+            <textarea class="contact-textarea" id="cf-message" name="message" placeholder="Décrivez votre besoin ou posez votre question…" required></textarea>
+          </div>
+          <button type="submit" class="contact-submit">Envoyer le message →</button>
+        </form>
+      </div>
+
+      <!-- Droite : Coordonnées + Newsletter -->
+      <div class="contact-info-col">
+
+        <!-- Coordonnées -->
+        <div class="contact-card">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-3px;margin-right:8px;color:var(--blue-mid)"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Nous joindre directement
+          </h3>
+          <div class="contact-links">
+            <a href="mailto:digibus.sj@gmail.com" class="contact-link">
+              <div class="contact-link-icon email">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f4683" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+              </div>
+              <div class="contact-link-text">
+                <div class="contact-link-label">Email</div>
+                <div class="contact-link-val">digibus.sj@gmail.com</div>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="https://facebook.com/associationdigibus" target="_blank" rel="noopener" class="contact-link">
+              <div class="contact-link-icon fb">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+              </div>
+              <div class="contact-link-text">
+                <div class="contact-link-label">Facebook</div>
+                <div class="contact-link-val">@associationdigibus</div>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="https://linkedin.com/company/digibus62" target="_blank" rel="noopener" class="contact-link">
+              <div class="contact-link-icon li">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2" fill="#0A66C2"/></svg>
+              </div>
+              <div class="contact-link-text">
+                <div class="contact-link-label">LinkedIn</div>
+                <div class="contact-link-val">Digibus62</div>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <!-- Newsletter — en stand-by (prestation séparée) -->
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+<!-- ══ FOOTER ═════════════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="public/images/logo-digibus.jpg" alt="Digibus"/>
+        <span>Association Digibus</span>
+      </div>
+      <p class="footer-desc">Association loi 1901 — Premier Relais Numérique du Pas-de-Calais. Ateliers numériques gratuits, itinérants, pour toutes les générations.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#galerie">Nos ateliers</a></li>
+        <li><a href="#relais">Relais numériques</a></li>
+        <li><a href="#testimonials">Témoignages</a></li>
+        <li><a href="#logos">Partenaires</a></li>
+        <li><a href="#contact">Nous contacter</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:digibus.sj@gmail.com">digibus.sj@gmail.com</a></li>
+        <li><a href="tel:0620181736">06 20 18 17 36 — Stéphanie</a></li>
+        <li><a href="tel:0745119002">07 45 11 90 02 — Judith</a></li>
+        <li><a href="https://maps.google.com/?q=59+Boulevard+de+Paris,+62190+Lillers" target="_blank">59 Bd de Paris, Lillers (62190)</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Légal</h4>
+      <ul>
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+        <li><a href="politique-confidentialite.html">Confidentialité</a></li>
+        <li><a href="https://www.pappers.fr/entreprise/digibus-923424717" target="_blank">SIREN : 923424717</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Association Digibus · Tous droits réservés</p>
+    <div class="footer-socials">
+      <a href="https://www.facebook.com/associationdigibus" target="_blank" aria-label="Facebook">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/company/digibus62" target="_blank" aria-label="LinkedIn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Menu dropdown pill logo
+  function toggleMenu() {
+    const btn   = document.getElementById('nav-pill');
+    const dd    = document.getElementById('nav-dropdown');
+    const arrow = document.getElementById('nav-arrow');
+    btn.classList.toggle('open');
+    dd.classList.toggle('open');
+    arrow.textContent = dd.classList.contains('open') ? '▴' : '▾';
+  }
+  function closeMenu() {
+    document.getElementById('nav-pill').classList.remove('open');
+    document.getElementById('nav-dropdown').classList.remove('open');
+    document.getElementById('nav-arrow').textContent = '▾';
+  }
+  // Fermer si clic en dehors
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.nav-logo-wrap')) closeMenu();
+  });
+
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Scroll reveal général
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ══ TEXTE PROGRESSIF — mots s'allument au scroll ══
+  const swWords = document.querySelectorAll('.sw');
+  if (swWords.length) {
+    const wordObs = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Délai léger par position pour un effet stagger
+          setTimeout(() => entry.target.classList.add('lit'), 0);
+          wordObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5, rootMargin: '0px 0px -5% 0px' });
+
+    // Stagger basé sur GSAP ScrollTrigger pour un rendu plus fluide
+    gsap.to({}, {
+      scrollTrigger: {
+        trigger: '#st-text',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          swWords.forEach((w, i) => {
+            const threshold = i / swWords.length;
+            if (progress >= threshold) {
+              w.classList.add('lit');
+            } else {
+              w.classList.remove('lit');
+            }
+          });
+        }
+      }
+    });
+  }
+
+  // ══ QUAD SCATTER — Animation auto à l'entrée dans le viewport ══
+  if (document.querySelector('.qs-pin')) {
+    // Toutes les photos démarrent au centre, empilées
+    gsap.set('.qs-top',    { x: 0, y: 0 });
+    gsap.set('.qs-left',   { x: 0, y: 0 });
+    gsap.set('.qs-right',  { x: 0, y: 0 });
+    gsap.set('.qs-bottom', { x: 0, y: 0 });
+    gsap.set('.qs-text',   { opacity: 0, scale: 0.9 });
+
+    let qsPlayed = false;
+    const qsObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !qsPlayed) {
+          qsPlayed = true;
+          const tl = gsap.timeline();
+          tl.to('.qs-top',    { y: -290, duration: 1.2, ease: 'power3.out' }, 0)
+            .to('.qs-left',   { x: -420, duration: 1.2, ease: 'power3.out' }, 0)
+            .to('.qs-right',  { x:  420, duration: 1.2, ease: 'power3.out' }, 0)
+            .to('.qs-bottom', { y:  430, duration: 1.2, ease: 'power3.out' }, 0)
+            .to('.qs-text',   { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out' }, 0.35);
+          qsObs.disconnect();
+        }
+      });
+    }, { threshold: 0.35 });
+
+    qsObs.observe(document.querySelector('#quad-scatter'));
+  }
+
+  // Hero GSAP entrance
+  gsap.fromTo('.hero-badge', { opacity:0, y:-20 }, { opacity:1, y:0, duration:0.7, delay:0.3 });
+  gsap.fromTo('.hero-h1',    { opacity:0, y:60  }, { opacity:1, y:0, duration:1.1, delay:0.5, ease:'power4.out' });
+  gsap.fromTo('.hero-sub',   { opacity:0, y:30  }, { opacity:1, y:0, duration:0.8, delay:0.85 });
+  gsap.fromTo('.hero-cta-wrap', { opacity:0, y:20 }, { opacity:1, y:0, duration:0.6, delay:1.05 });
+  gsap.fromTo('.hero-quote', { opacity:0, y:15  }, { opacity:1, y:0, duration:0.6, delay:1.25 });
+
+  // Stat number count-up
+  function countUp(el, target, isFloat) {
+    const obs = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      obs.disconnect();
+      const dur = 1400; const start = performance.now();
+      const tick = now => {
+        const p = Math.min((now - start)/dur, 1);
+        const e = 1 - Math.pow(1-p, 3);
+        el.textContent = isFloat ? (target*e).toFixed(1) : Math.floor(target*e);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.5 });
+    obs.observe(el);
+  }
+
+  // Bouton son vidéo
+  function toggleSound() {
+    const video  = document.getElementById('digibus-video');
+    const btn    = document.getElementById('sound-btn');
+    const iconMuted = document.getElementById('icon-muted');
+    const iconSound = document.getElementById('icon-sound');
+    video.muted = !video.muted;
+    if (video.muted) {
+      iconMuted.style.display = 'block';
+      iconSound.style.display = 'none';
+      btn.classList.remove('active');
+    } else {
+      iconMuted.style.display = 'none';
+      iconSound.style.display = 'block';
+      btn.classList.add('active'); // stoppe le pulse
+    }
+  }
+
+  // ══ Galerie ateliers — scroll + drag ════════════════════
+  (function() {
+    const track = document.getElementById('gal-track');
+    if (!track) return;
+    const STEP = 560;
+    const prev = document.getElementById('gal-prev');
+    const next = document.getElementById('gal-next');
+    if (prev) prev.addEventListener('click', () => track.scrollBy({ left: -STEP, behavior: 'smooth' }));
+    if (next) next.addEventListener('click', () => track.scrollBy({ left:  STEP, behavior: 'smooth' }));
+    let isDown = false, startX = 0, scrollLeft = 0;
+    track.addEventListener('mousedown', e => { isDown = true; track.classList.add('grabbing'); startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
+    track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
+    track.addEventListener('mouseup',    () => { isDown = false; track.classList.remove('grabbing'); });
+    track.addEventListener('mousemove',  e => { if (!isDown) return; e.preventDefault(); track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.5; });
+  })();
+
+  // ══ Témoignages — scroll horizontal + drag ══════════════
+  (function() {
+    const track = document.getElementById('testi-track');
+    if (!track) return;
+    const CARD_W = 336; // 320px carte + 16px gap
+
+    // Flèches
+    const btnPrev = document.getElementById('testi-prev');
+    const btnNext = document.getElementById('testi-next');
+    if (btnPrev) btnPrev.addEventListener('click', () => track.scrollBy({ left: -CARD_W, behavior: 'smooth' }));
+    if (btnNext) btnNext.addEventListener('click', () => track.scrollBy({ left:  CARD_W, behavior: 'smooth' }));
+
+    // Drag to scroll (souris)
+    let isDown = false, startX = 0, scrollLeft = 0;
+    track.addEventListener('mousedown', e => {
+      isDown = true;
+      track.classList.add('grabbing');
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+    track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
+    track.addEventListener('mouseup',    () => { isDown = false; track.classList.remove('grabbing'); });
+    track.addEventListener('mousemove',  e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    });
+  })();
+
+  /* ══ COMPTEURS ANIMÉS — Stats cards ══════════════════ */
+  (function() {
+    const counters = document.querySelectorAll('.stat-num span');
+    if (!counters.length) return;
+
+    function animateCount(el, target, duration) {
+      const start = performance.now();
+      const startVal = 0;
+      // Ease out cubic
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+      function frame(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const val = Math.round(easeOut(progress) * target);
+        el.textContent = val;
+        if (progress < 1) requestAnimationFrame(frame);
+        else el.textContent = target; // valeur exacte finale
+      }
+      requestAnimationFrame(frame);
+    }
+
+    let played = false;
+    const statsObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !played) {
+          played = true;
+          counters.forEach(span => {
+            const target = parseInt(span.textContent, 10);
+            // Durée proportionnelle — max 2s, min 0.8s
+            const duration = Math.min(2000, Math.max(800, target * 4));
+            animateCount(span, target, duration);
+          });
+          statsObs.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    statsObs.observe(document.querySelector('#stats-cards'));
+  })();
+</script>
+
+<!-- ══ Formulaires Vercel — Contact + Newsletter ══════════════ -->
+<script>
+(function() {
+
+  // ── Formulaire de contact ──────────────────────────────────
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.contact-submit');
+      const origText = btn.textContent;
+      btn.textContent = 'Envoi en cours…';
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+
+      const data = {
+        prenom:  this.querySelector('#cf-prenom').value.trim(),
+        nom:     this.querySelector('#cf-nom').value.trim(),
+        email:   this.querySelector('#cf-email').value.trim(),
+        message: this.querySelector('#cf-message').value.trim()
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          btn.textContent = '✓ Message envoyé !';
+          btn.style.background = '#22c55e';
+          btn.style.opacity = '1';
+          contactForm.reset();
+          setTimeout(() => {
+            btn.textContent = origText;
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 5000);
+        } else {
+          throw new Error('server');
+        }
+      } catch {
+        btn.textContent = '✗ Erreur — réessayez';
+        btn.style.background = '#ef4444';
+        btn.style.opacity = '1';
+        setTimeout(() => {
+          btn.textContent = origText;
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
+      }
+    });
+  }
+
+  // ── Formulaire newsletter ──────────────────────────────────
+  const nlForm = document.getElementById('newsletter-form');
+  if (nlForm) {
+    nlForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn   = this.querySelector('.contact-nl-btn');
+      const input = this.querySelector('.contact-nl-input');
+      const origText = btn.textContent;
+      btn.textContent = '…';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: input.value.trim() })
+        });
+
+        if (res.ok) {
+          btn.textContent = '✓';
+          btn.style.background = '#22c55e';
+          input.value = '';
+          input.placeholder = 'Inscrit·e ! Vérifiez votre boîte mail 🎉';
+          input.disabled = true;
+        } else {
+          throw new Error('server');
+        }
+      } catch {
+        btn.textContent = '✗ Erreur';
+        btn.style.background = '#ef4444';
+        setTimeout(() => {
+          btn.textContent = origText;
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 3000);
+      }
+    });
+  }
+
+})();
+</script>
+</body>
+</html>

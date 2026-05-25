@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" fill="none">
+  <!-- Cercle rouge -->
+  <circle cx="26" cy="26" r="26" fill="#E63329"/>
+  <!-- Deux points blancs (style colon) -->
+  <circle cx="26" cy="18" r="5" fill="white"/>
+  <circle cx="26" cy="34" r="5" fill="white"/>
+  <!-- Texte simplon -->
+  <text x="64" y="35" font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="600" fill="#1a2b4a" letter-spacing="-0.5">simplon</text>
+</svg>
