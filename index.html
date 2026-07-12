@@ -1636,9 +1636,18 @@
     #hero, #stats, #features, #results, #cta-dark, #testimonials, #contact, footer { padding-left: 24px; padding-right: 24px; }
     .hero-h1 { font-size: clamp(34px, 6vw, 50px); white-space: normal; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
-    .features-grid { flex-wrap: wrap; }
-    .feat-card { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .feat-card:last-child { border-bottom: none; }
+    .features-grid {
+      flex-wrap: nowrap; overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    }
+    .features-grid::-webkit-scrollbar { display: none; }
+    .feat-card {
+      flex: 0 0 auto; width: 72%;
+      scroll-snap-align: start;
+      border-right: 1px solid rgba(255,255,255,0.1); border-bottom: none;
+    }
+    .feat-card:last-child { border-right: none; }
     .results-grid { grid-template-columns: 1fr; }
     .cta-dark-inner { grid-template-columns: 1fr; gap: 48px; }
     .stats-photos { grid-template-columns: 1fr; }
@@ -1756,7 +1765,7 @@
     .hero-inner { padding: 20px 16px 44px; }
     .hero-h1 { font-size: clamp(27px, 8.6vw, 34px); }
 
-    .feat-card { flex: 0 0 100%; }
+    .feat-card { flex: 0 0 auto; width: 80%; }
 
     .mission-left { padding: 32px 22px; }
     .mission-float { left: 14px; right: 14px; bottom: 14px; padding: 12px 14px; gap: 10px; }
