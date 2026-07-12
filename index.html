@@ -3265,26 +3265,30 @@
 })();
 
 // ══ Auto-scroll barre stats sur mobile (pause au toucher) ══
+// Accumulateur flottant `pos` écrit dans scrollLeft SANS le relire
+// (Safari/iOS arrondit scrollLeft à l'entier → les +0.x seraient perdus si on relisait)
 (function() {
   const track = document.querySelector('.stats-cards-inner');
   if (!track) return;
   const mq = window.matchMedia('(max-width: 768px)');
-  let dir = 1, paused = false, pauseUntil = 0;
-  const SPEED = 0.5;
+  let dir = 1, paused = false, pauseUntil = 0, pos = 0;
+  const SPEED = 0.8;
   function step() {
     if (mq.matches) {
       const now = performance.now();
       const max = track.scrollWidth - track.clientWidth;
       if (!paused && now >= pauseUntil && max > 2) {
-        track.scrollLeft += SPEED * dir;
-        if (track.scrollLeft >= max - 0.5)      { dir = -1; pauseUntil = now + 1600; }
-        else if (track.scrollLeft <= 0.5)       { dir =  1; pauseUntil = now + 1600; }
+        pos += SPEED * dir;
+        if (pos >= max)      { pos = max; dir = -1; pauseUntil = now + 1600; }
+        else if (pos <= 0)   { pos = 0;   dir =  1; pauseUntil = now + 1600; }
+        track.scrollLeft = pos;
       }
     }
     requestAnimationFrame(step);
   }
   const pause  = () => { paused = true; };
-  const resume = () => { paused = false; pauseUntil = performance.now() + 2000; };
+  // À la reprise, on resynchronise pos sur la position réelle (l'utilisateur a pu swiper)
+  const resume = () => { pos = track.scrollLeft; paused = false; pauseUntil = performance.now() + 2000; };
   track.addEventListener('touchstart',  pause,  { passive: true });
   track.addEventListener('touchend',    resume, { passive: true });
   track.addEventListener('pointerdown', pause);
