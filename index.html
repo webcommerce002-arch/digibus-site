@@ -1660,7 +1660,9 @@
     .results-grid { grid-template-columns: 1fr; }
     .cta-dark-inner { grid-template-columns: 1fr; gap: 48px; }
     .stats-photos { grid-template-columns: 1fr; }
-    .footer-top { flex-direction: column; gap: 28px; }
+    .footer-top { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 20px; }
+    .footer-brand { grid-column: 1 / -1; max-width: none; }
+    .footer-col h4 { margin-bottom: 10px; }
     /* Téléphone : photo au-dessus, texte en dessous (inversion) */
     .mission-right { order: -1; }
     /* Quad scatter — photos réduites pour tenir dans l'écran tablette */
@@ -1761,7 +1763,7 @@
     /* — FOOTER — */
     footer { padding: 44px 20px 28px; }
     .footer-desc { font-size: 14px; }
-    .footer-col a { font-size: 15px; display: inline-block; padding: 6px 0; }
+    .footer-col a { font-size: 14px; display: inline-block; padding: 5px 0; word-break: break-word; }
     .footer-col li { margin-bottom: 2px; }
     .footer-socials a { width: 44px; height: 44px; }
   }
