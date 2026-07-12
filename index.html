@@ -274,8 +274,22 @@
   /* ══ STATS CARDS (remplace logos) ═══════════════════ */
   #stats-cards { padding: 56px 52px; background: var(--white); }
   .stats-cards-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  @media (max-width: 768px) { .stats-cards-inner { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .stats-cards-inner { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) {
+    .stats-cards-inner {
+      grid-template-columns: none;
+      display: flex; overflow-x: auto; gap: 12px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .stats-cards-inner::-webkit-scrollbar { display: none; }
+    .stats-cards-inner .stat-card {
+      flex: 0 0 auto; width: 72%; max-width: 300px;
+      scroll-snap-align: start;
+    }
+  }
+  @media (max-width: 480px) { .stats-cards-inner .stat-card { width: 80%; } }
 
   /* ══ MARQUEE LOGOS ════════════════════════════════════ */
   /* ══ PARTENAIRES — grille couleur avant footer ═══════ */
