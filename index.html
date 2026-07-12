@@ -278,7 +278,6 @@
     .stats-cards-inner {
       grid-template-columns: none;
       display: flex; overflow-x: auto; gap: 12px;
-      scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       padding-bottom: 4px;
       scrollbar-width: none;
@@ -286,7 +285,6 @@
     .stats-cards-inner::-webkit-scrollbar { display: none; }
     .stats-cards-inner .stat-card {
       flex: 0 0 auto; width: 72%; max-width: 300px;
-      scroll-snap-align: start;
     }
   }
   @media (max-width: 480px) { .stats-cards-inner .stat-card { width: 80%; } }
@@ -3264,6 +3262,36 @@
     });
   }
 
+})();
+
+// ══ Auto-scroll barre stats sur mobile (pause au toucher) ══
+(function() {
+  const track = document.querySelector('.stats-cards-inner');
+  if (!track) return;
+  const mq = window.matchMedia('(max-width: 768px)');
+  let dir = 1, paused = false, pauseUntil = 0;
+  const SPEED = 0.5;
+  function step() {
+    if (mq.matches) {
+      const now = performance.now();
+      const max = track.scrollWidth - track.clientWidth;
+      if (!paused && now >= pauseUntil && max > 2) {
+        track.scrollLeft += SPEED * dir;
+        if (track.scrollLeft >= max - 0.5)      { dir = -1; pauseUntil = now + 1600; }
+        else if (track.scrollLeft <= 0.5)       { dir =  1; pauseUntil = now + 1600; }
+      }
+    }
+    requestAnimationFrame(step);
+  }
+  const pause  = () => { paused = true; };
+  const resume = () => { paused = false; pauseUntil = performance.now() + 2000; };
+  track.addEventListener('touchstart',  pause,  { passive: true });
+  track.addEventListener('touchend',    resume, { passive: true });
+  track.addEventListener('pointerdown', pause);
+  window.addEventListener('pointerup',  resume);
+  track.addEventListener('mouseenter',  pause);
+  track.addEventListener('mouseleave',  resume);
+  requestAnimationFrame(step);
 })();
 </script>
 </body>
