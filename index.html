@@ -1614,8 +1614,11 @@
 
   /* ══ RESPONSIVE ═══════════════════════════════════════ */
   @media (max-width: 1024px) {
-    nav { padding: 16px 24px; }
+    html { overflow-x: hidden; }
+    nav { padding: 16px 24px !important; } /* !important : la nav a un style inline */
     .nav-links, .nav-socials { display: none; }
+    .nav-logo-square img { height: 64px; width: 64px; }
+    .nav-logo-name { font-size: 18px; }
     #hero, #stats, #features, #results, #cta-dark, #testimonials, #contact, footer { padding-left: 24px; padding-right: 24px; }
     .hero-h1 { font-size: clamp(34px, 6vw, 50px); white-space: normal; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -1626,6 +1629,153 @@
     .cta-dark-inner { grid-template-columns: 1fr; gap: 48px; }
     .stats-photos { grid-template-columns: 1fr; }
     .footer-top { flex-direction: column; gap: 28px; }
+    /* Quad scatter — photos réduites pour tenir dans l'écran tablette */
+    .qs-left, .qs-right { width: 220px; height: 370px; }
+    .qs-top, .qs-bottom { width: 320px; height: 190px; }
+    .qs-text { max-width: 330px; }
+  }
+
+  /* ══ RESPONSIVE — TÉLÉPHONE ≤768px ═══════════════════ */
+  @media (max-width: 768px) {
+
+    /* — NAV — */
+    nav { padding: 12px 16px !important; align-items: center; }
+    .nav-logo-block { gap: 10px; }
+    .nav-logo-square { padding: 7px; border-radius: 12px; }
+    .nav-logo-square img { height: 46px; width: 46px; }
+    .nav-logo-name { font-size: 15px; white-space: normal; max-width: 130px; line-height: 1.25; }
+    .nav-pill-logo { padding: 12px 14px !important; } /* cible tactile ≥44px */
+    .nav-dropdown { min-width: 0; width: min(460px, calc(100vw - 32px)); padding: 16px 20px 20px; }
+    .dd-link { font-size: 16px; padding: 10px 0; }
+    .dd-socials { gap: 20px; }
+    .dd-social { display: inline-block; padding: 8px 0; }
+
+    /* — HERO — */
+    #hero { height: auto; min-height: calc(100svh - 2rem); }
+    .hero-nav-spacer { height: 92px; }
+    .hero-inner { padding: 24px 20px 48px; }
+    .hero-h1 { font-size: clamp(30px, 8.4vw, 42px); }
+    .hero-sub { font-size: 15px; max-width: 440px; }
+    .btn-hero-primary { padding: 15px 32px; }
+    .hero-quote { font-size: 16px; }
+
+    /* — Coins vagues décoratifs réduits (~×0.65) — */
+    .st-corner, .hero-corner { width: 104px; height: 104px; }
+    .st-wave-1, .hero-corner .st-wave-1 { width: 98px; height: 98px; }
+    .st-wave-2, .hero-corner .st-wave-2 { width: 73px; height: 73px; }
+    .st-wave-3, .hero-corner .st-wave-3 { width: 49px; height: 49px; }
+    .st-wave-4, .hero-corner .st-wave-4 { width: 27px; height: 27px; }
+
+    /* — TRUST STRIP — (nowrap débordait à 375px) */
+    #trust { padding: 28px 20px; }
+    .trust-row { flex-direction: column; gap: 12px; }
+    .trust-sep { display: none; }
+    .trust-count { white-space: normal; text-align: center; font-size: 15px; line-height: 1.45; }
+
+    /* — STATS CARDS — */
+    #stats-cards { padding: 44px 20px; }
+    .stats-cards-inner { gap: 12px; }
+    .stat-card { padding: 26px 20px; }
+    .stat-label { font-size: 15px; }
+
+    /* — SCROLLTEXT — */
+    #scrolltext { padding: 48px 22px; }
+    .st-text { font-size: clamp(17px, 4.8vw, 22px); }
+
+    /* — RESULTS — */
+    #results { padding-top: 64px; padding-bottom: 64px; }
+    .results-lifer { gap: 32px; }
+    .rl-card-sub { font-size: 13px; }
+    .rl-video-wrap { height: 240px; }
+
+    /* — FEATURES — */
+    .feat-card { padding: 26px 20px; }
+    .feat-desc { font-size: 14px; }
+
+    /* — MISSION — */
+    .mission-sub { font-size: 17px; }
+
+    /* — QUAD SCATTER → pile verticale, animation désactivée (JS gaté) — */
+    .qs-pin { min-height: 0; flex-direction: column; gap: 18px; padding: 56px 20px 64px; }
+    .qs-photo { position: relative; width: min(100%, 420px); transform: none !important; will-change: auto; }
+    .qs-top, .qs-bottom { height: 215px; }
+    .qs-left, .qs-right { height: 330px; }
+    .qs-text { opacity: 1 !important; transform: none !important; max-width: 420px; padding: 10px 0; }
+    .qs-dots-bg, .qs-icon-halo { display: none; }
+
+    /* — RELAIS / EMMAÜS — */
+    .relais-emmaus-logo { height: 96px; }
+    .relais-desc { font-size: 15px; }
+
+    /* — PRESSE — (passe en 1 colonne à 900px) */
+    .presse-quote p { font-size: .95rem; }
+    .presse-radio-text { font-size: .85rem; }
+
+    /* — LOGOS — le logo Relais a un height inline 72px */
+    .logos-grid img[style*="height"] { height: 52px !important; }
+
+    /* — CTA DARK — */
+    #cta-dark { padding-top: 72px; padding-bottom: 72px; }
+    .cta-dark-inner { gap: 40px; }
+
+    /* — CONTACT — */
+    #contact { padding-top: 64px; padding-bottom: 64px; }
+    .contact-header { margin-bottom: 40px; }
+    .contact-input, .contact-textarea { font-size: 16px; } /* évite le zoom auto iOS */
+    .contact-submit { padding: 15px 28px; }
+
+    /* — FOOTER — */
+    footer { padding: 44px 20px 28px; }
+    .footer-desc { font-size: 14px; }
+    .footer-col a { font-size: 15px; display: inline-block; padding: 6px 0; }
+    .footer-col li { margin-bottom: 2px; }
+    .footer-socials a { width: 44px; height: 44px; }
+  }
+
+  /* ══ RESPONSIVE — PETIT TÉLÉPHONE ≤480px ═════════════ */
+  @media (max-width: 480px) {
+    nav { padding: 10px 12px !important; }
+    .nav-logo-square img { height: 42px; width: 42px; }
+    .nav-logo-name { font-size: 14px; max-width: 110px; }
+    .dd-links { grid-template-columns: 1fr; }
+    .hero-nav-spacer { height: 84px; }
+    .hero-inner { padding: 20px 16px 44px; }
+    .hero-h1 { font-size: clamp(27px, 8.6vw, 34px); }
+
+    .feat-card { flex: 0 0 100%; }
+
+    .mission-left { padding: 32px 22px; }
+    .mission-float { left: 14px; right: 14px; bottom: 14px; padding: 12px 14px; gap: 10px; }
+    .mission-float-val { font-size: 13px; }
+
+    .qs-top, .qs-bottom { height: 190px; }
+    .qs-left, .qs-right { height: 300px; }
+
+    .relais-emmaus-logo { height: 72px; }
+    .relais-left { padding: 32px 20px; }
+    .relais-right { padding: 28px 18px; }
+    .relais-row { padding: 12px; gap: 10px; }
+    .relais-row-icon { width: 40px; height: 40px; }
+    .relais-row-icon img { width: 38px; height: 38px; }
+    .relais-row-amount { font-size: 21px; }
+
+    .gal-photo { height: 320px; }
+    .gal-stack { height: 320px; }
+    .gal-photo.gal-wide { width: 290px; }
+    .gal-photo.gal-med  { width: 240px; }
+    .gal-stack .gal-photo { width: 220px; }
+    .gal-stack .gal-photo.gal-wide { width: 250px; }
+
+    .testi-card { flex: 0 0 280px; }
+
+    #presse { padding: 40px 16px; }
+
+    .cta-card-num { font-size: 44px; }
+    .cta-dark-h2 { margin-bottom: 28px; }
+
+    .contact-form-col, .contact-card { padding: 24px 18px; }
+
+    .footer-logo img { height: 48px; }
   }
   </style>
 </head>
@@ -2816,32 +2966,55 @@
   }
 
   // ══ QUAD SCATTER — Animation auto à l'entrée dans le viewport ══
-  if (document.querySelector('.qs-pin')) {
-    // Toutes les photos démarrent au centre, empilées
-    gsap.set('.qs-top',    { x: 0, y: 0 });
-    gsap.set('.qs-left',   { x: 0, y: 0 });
-    gsap.set('.qs-right',  { x: 0, y: 0 });
-    gsap.set('.qs-bottom', { x: 0, y: 0 });
-    gsap.set('.qs-text',   { opacity: 0, scale: 0.9 });
+  // ≤768px : AUCUNE animation GSAP — disposition empilée gérée en CSS pur
+  // (le CSS mobile force position:static + opacity:1 !important sur .qs-text)
+  (function() {
+    if (!document.querySelector('.qs-pin')) return;
+    const qsMQ = window.matchMedia('(min-width: 769px)');
 
-    let qsPlayed = false;
-    const qsObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !qsPlayed) {
-          qsPlayed = true;
-          const tl = gsap.timeline();
-          tl.to('.qs-top',    { y: -360, duration: 1.2, ease: 'power3.out' }, 0)
-            .to('.qs-left',   { x: -420, duration: 1.2, ease: 'power3.out' }, 0)
-            .to('.qs-right',  { x:  420, duration: 1.2, ease: 'power3.out' }, 0)
-            .to('.qs-bottom', { y:  430, duration: 1.2, ease: 'power3.out' }, 0)
-            .to('.qs-text',   { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out' }, 0.35);
-          qsObs.disconnect();
-        }
-      });
-    }, { threshold: 0.35 });
+    function initQuadScatter() {
+      // Toutes les photos démarrent au centre, empilées
+      gsap.set('.qs-top',    { x: 0, y: 0 });
+      gsap.set('.qs-left',   { x: 0, y: 0 });
+      gsap.set('.qs-right',  { x: 0, y: 0 });
+      gsap.set('.qs-bottom', { x: 0, y: 0 });
+      gsap.set('.qs-text',   { opacity: 0, scale: 0.9 });
 
-    qsObs.observe(document.querySelector('#quad-scatter'));
-  }
+      // Décalages : desktop >1024px = valeurs d'origine ; tablette = clampés à l'écran
+      const vw   = window.innerWidth;
+      const xOff = vw <= 1024 ? Math.min(420, Math.round(vw / 2 - 120)) : 420;
+      const yTop = vw <= 1024 ? -300 : -360;
+      const yBot = vw <= 1024 ?  350 :  430;
+
+      let qsPlayed = false;
+      const qsObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !qsPlayed) {
+            qsPlayed = true;
+            const tl = gsap.timeline();
+            tl.to('.qs-top',    { y: yTop,  duration: 1.2, ease: 'power3.out' }, 0)
+              .to('.qs-left',   { x: -xOff, duration: 1.2, ease: 'power3.out' }, 0)
+              .to('.qs-right',  { x:  xOff, duration: 1.2, ease: 'power3.out' }, 0)
+              .to('.qs-bottom', { y: yBot,  duration: 1.2, ease: 'power3.out' }, 0)
+              .to('.qs-text',   { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out' }, 0.35);
+            qsObs.disconnect();
+          }
+        });
+      }, { threshold: 0.35 });
+
+      qsObs.observe(document.querySelector('#quad-scatter'));
+    }
+
+    if (qsMQ.matches) {
+      initQuadScatter();
+    } else {
+      // Rotation téléphone/tablette vers >768px après chargement : init une seule fois
+      const onQsChange = (e) => {
+        if (e.matches) { qsMQ.removeEventListener('change', onQsChange); initQuadScatter(); }
+      };
+      qsMQ.addEventListener('change', onQsChange);
+    }
+  })();
 
   // Hero GSAP entrance
   gsap.fromTo('.hero-badge', { opacity:0, y:-20 }, { opacity:1, y:0, duration:0.7, delay:0.3 });
