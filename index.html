@@ -1634,18 +1634,29 @@
     #hero, #stats, #features, #results, #cta-dark, #testimonials, #contact, footer { padding-left: 24px; padding-right: 24px; }
     .hero-h1 { font-size: clamp(34px, 6vw, 50px); white-space: normal; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
+    #features { padding: 34px 20px 40px; }
     .features-grid {
       flex-wrap: nowrap; overflow-x: auto;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      border-top: none; gap: 16px; padding: 4px 2px 10px;
     }
     .features-grid::-webkit-scrollbar { display: none; }
     .feat-card {
-      flex: 0 0 auto; width: 72%;
-      scroll-snap-align: start;
-      border-right: 1px solid rgba(255,255,255,0.1); border-bottom: none;
+      flex: 0 0 auto; width: 80%;
+      scroll-snap-align: center;
+      background: linear-gradient(160deg, rgba(255,255,255,0.13), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
     }
-    .feat-card:last-child { border-right: none; }
+    .feat-card:last-child { border: 1px solid rgba(255,255,255,0.18); }
+    .feat-icon {
+      width: 52px; height: 52px; border-radius: 15px;
+      background: linear-gradient(135deg, #2ba7dd, #1f6fb2);
+      box-shadow: 0 8px 20px rgba(32,146,197,0.40);
+    }
+    .feat-title { font-size: 17px; }
     .results-grid { grid-template-columns: 1fr; }
     .cta-dark-inner { grid-template-columns: 1fr; gap: 48px; }
     .stats-photos { grid-template-columns: 1fr; }
@@ -1710,7 +1721,7 @@
     .rl-video-wrap { height: 240px; }
 
     /* — FEATURES — */
-    .feat-card { padding: 26px 20px; }
+    .feat-card { padding: 30px 26px; }
     .feat-desc { font-size: 14px; }
 
     /* — MISSION — */
