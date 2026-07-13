@@ -1590,24 +1590,50 @@
     .contact-nl-form { flex-direction: column; }
   }
 
-  /* ══ FOOTER ═══════════════════════════════════════════ */
-  footer { background: var(--page-bg); border-top: 1px solid var(--border); padding: 52px; }
+  /* ══ FOOTER — brandé bleu marine + mesh cyan + effet lumineux ═══ */
+  footer {
+    position: relative; isolation: isolate; overflow: hidden;
+    padding: 72px 52px 40px;
+    color: #dbe7f5;
+    background:
+      radial-gradient(1100px 400px at 12% -15%, rgba(32,146,197,0.30), transparent 60%),
+      radial-gradient(950px 460px at 102% 118%, rgba(31,70,131,0.60), transparent 55%),
+      linear-gradient(158deg, #1c3f77 0%, #14305a 55%, #0e2143 100%);
+  }
+  /* Grille de points de marque — cohérence avec la section scatter, fondue vers le bas */
+  footer::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.075) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(ellipse 72% 82% at 50% 0%, #000 5%, transparent 78%);
+    mask-image: radial-gradient(ellipse 72% 82% at 50% 0%, #000 5%, transparent 78%);
+  }
+  /* Barre lumineuse animée en haut — signature Digibus qui glisse */
+  footer::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, transparent 0%, #2092c5 22%, #8fd8f6 50%, #2092c5 78%, transparent 100%);
+    background-size: 220% 100%;
+    animation: footerShine 6.5s linear infinite;
+  }
+  @keyframes footerShine { 0% { background-position: 220% 0; } 100% { background-position: -220% 0; } }
+  @media (prefers-reduced-motion: reduce) { footer::after { animation: none; } }
+
   .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; flex-wrap: wrap; margin-bottom: 40px; }
-  .footer-brand { max-width: 280px; }
-  .footer-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-  .footer-logo img { height: 56px; border-radius: 10px; }
-  .footer-logo span { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 17px; }
-  .footer-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
-  .footer-col h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+  .footer-brand { max-width: 300px; }
+  .footer-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .footer-logo img { height: 46px; padding: 7px; border-radius: 12px; background: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.28); }
+  .footer-logo span { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 17px; color: #fff; }
+  .footer-desc { font-size: 13px; color: rgba(219,231,245,0.72); line-height: 1.7; }
+  .footer-col h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; color: #8fd8f6; }
   .footer-col ul { list-style: none; }
   .footer-col li { margin-bottom: 10px; }
-  .footer-col a { font-size: 13px; color: var(--muted); transition: color .2s; }
-  .footer-col a:hover { color: var(--text); }
-  .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-  .footer-copy { font-size: 12px; color: var(--muted); }
+  .footer-col a { font-size: 13px; color: rgba(219,231,245,0.74); transition: color .2s, padding-left .2s; }
+  .footer-col a:hover { color: #fff; padding-left: 4px; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-copy { font-size: 12px; color: rgba(219,231,245,0.58); }
   .footer-socials { display: flex; gap: 10px; }
-  .footer-socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: all .2s; }
-  .footer-socials a:hover { border-color: var(--blue-mid); color: var(--blue); }
+  .footer-socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.28); display: flex; align-items: center; justify-content: center; color: #cfe4f5; transition: all .25s; }
+  .footer-socials a:hover { background: #2092c5; border-color: #2092c5; color: #0e2143; transform: translateY(-3px); box-shadow: 0 8px 22px rgba(32,146,197,0.45); }
 
   /* ══ REVEAL ═══════════════════════════════════════════ */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
@@ -1665,10 +1691,20 @@
     .footer-col h4 { margin-bottom: 10px; }
     /* Téléphone : photo au-dessus, texte en dessous (inversion) */
     .mission-right { order: -1; }
-    /* Quad scatter — photos réduites pour tenir dans l'écran tablette */
-    .qs-left, .qs-right { width: 220px; height: 370px; }
-    .qs-top, .qs-bottom { width: 320px; height: 190px; }
-    .qs-text { max-width: 330px; }
+  }
+
+  /* ══ QUAD SCATTER — TABLETTE PAYSAGE 769–1200px ══════════
+     Photos réduites + texte resserré → le décalage horizontal (JS)
+     ancre les photos près des bords, marge centrale toujours généreuse.
+     Corrige le "trop serré / mange le logo" sur iPad & tablettes paysage. */
+  @media (min-width: 769px) and (max-width: 1200px) {
+    .qs-left, .qs-right { width: 188px; height: 318px; }
+    .qs-top, .qs-bottom { width: 300px; height: 178px; }
+    /* Largeur responsive : étroite sur petite tablette, plus large quand la place existe
+       (photos ancrées près des bords) → titre garde ses 3 lignes sans casser. */
+    .qs-text { max-width: min(420px, calc(50vw - 140px)); }
+    .qs-dots-bg { width: 440px; }
+    .qs-icon-halo { width: 190px; height: 190px; }
   }
 
   /* ══ RESPONSIVE — TÉLÉPHONE ≤768px ═══════════════════ */
@@ -3016,11 +3052,14 @@
       gsap.set('.qs-bottom', { x: 0, y: 0 });
       gsap.set('.qs-text',   { opacity: 0, scale: 0.9 });
 
-      // Décalages : desktop >1024px = valeurs d'origine ; tablette = clampés à l'écran
-      const vw   = window.innerWidth;
-      const xOff = vw <= 1024 ? Math.min(420, Math.round(vw / 2 - 120)) : 420;
-      const yTop = vw <= 1024 ? -300 : -360;
-      const yBot = vw <= 1024 ?  350 :  430;
+      // Décalages : desktop >1200px = valeurs d'origine ;
+      // tablette paysage 769–1200px = photos réduites (CSS) + ancrées près des bords.
+      // xOff = demi-écran − demi-photo(94) − marge bord(14) → marge centrale toujours large.
+      const vw     = window.innerWidth;
+      const tablet = vw <= 1200;
+      const xOff   = tablet ? Math.round(vw / 2 - 108) : 420;
+      const yTop   = tablet ? -300 : -360;
+      const yBot   = tablet ?  350 :  430;
 
       let qsPlayed = false;
       const qsObs = new IntersectionObserver((entries) => {

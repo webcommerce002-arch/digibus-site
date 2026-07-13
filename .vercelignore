@@ -1,4 +1,4 @@
-# Vidéos non utilisées (trop lourdes)
+# Vidéos brutes non utilisées
 public/videos/digibus-2025.mp4
 public/videos/digibus-presentation.mp4
 
@@ -9,10 +9,8 @@ public/images/facebook/
 .env
 .env.local
 .DS_Store
-*.DS_Store
 
 # Fichiers internes agence
 CLAUDE.md
 DIGIBUS.md
 src/
-.vercel
