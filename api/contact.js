@@ -36,7 +36,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'Site Digibus <onboarding@resend.dev>',
+        from: 'Site Digibus <digibus@e-comconnect.com>',
         to: ['digibus.sj@gmail.com'],
         reply_to: email,
         subject: `✉️ Nouveau message de ${prenom} ${nom || ''}`.trim(),

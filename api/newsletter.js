@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'Newsletter Digibus <onboarding@resend.dev>',
+        from: 'Newsletter Digibus <digibus@e-comconnect.com>',
         to: ['digibus.sj@gmail.com'],
         subject: `🔔 Nouvelle inscription newsletter : ${email}`,
         html: `
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'Association Digibus <onboarding@resend.dev>',
+        from: 'Association Digibus <digibus@e-comconnect.com>',
         to: [email],
         subject: '✅ Vous êtes inscrit·e à la newsletter Digibus !',
         html: `
